@@ -19,9 +19,23 @@ namespace Sistema_de_Tienda.Controllers
         }
 
         // GET: Cliente
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(Cliente cliente, int topRegistro = 10)
         {
-            return View(await _context.Clientes.ToListAsync());
+            var query = _context.Clientes.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(cliente.Nombre))
+                query = query.Where(s => s.Nombre.Contains(cliente.Nombre));
+            if (!string.IsNullOrWhiteSpace(cliente.Correo))
+                query = query.Where(s => s.Correo.Contains(cliente.Correo));
+            if (!string.IsNullOrWhiteSpace(cliente.Dui))
+                query = query.Where(s => s.Dui.Contains(cliente.Dui));
+            if (cliente.Id > 0)
+                query = query.Where(s => s.Id == cliente.Id);
+            if (cliente.Id > 0)
+                query = query.Where(s => s.Id == cliente.Id);
+            if (topRegistro > 0)
+                query = query.Take(topRegistro);
+
+            return View(await query.ToListAsync());
         }
 
         // GET: Cliente/Details/5
@@ -85,34 +99,36 @@ namespace Sistema_de_Tienda.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Correo,Contrasena,DireccionPrincipal,Dui,FechaNacimiento,Telefono,FechaRegistro")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("Nombre,Correo,DireccionPrincipal,Telefono,Id")] Cliente cliente)
         {
             if (id != cliente.Id)
             {
                 return NotFound();
             }
+            var usuarioUpdate = await _context.Clientes
+                .FirstOrDefaultAsync(m => m.Id == cliente.Id);
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(cliente);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ClienteExists(cliente.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                usuarioUpdate.Nombre = cliente.Nombre;
+                usuarioUpdate.Correo = cliente.Correo;
+                usuarioUpdate.DireccionPrincipal = cliente.DireccionPrincipal;
+                usuarioUpdate.Telefono = cliente.Telefono;
+                _context.Update(usuarioUpdate);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ClienteExists(cliente.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(cliente);
+                }
+            }
         }
 
         // GET: Cliente/Delete/5
