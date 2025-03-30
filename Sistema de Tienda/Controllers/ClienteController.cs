@@ -15,6 +15,7 @@ using System.Text;
 
 namespace Sistema_de_Tienda.Controllers
 {
+    [Authorize(Roles = "ADMINISTRADOR")]
     public class ClienteController : Controller
     {
         private readonly SistemaTiendaContext _context;
@@ -63,6 +64,7 @@ namespace Sistema_de_Tienda.Controllers
         }
 
         // GET: Cliente/Create
+        [AllowAnonymous]
         public IActionResult Create()
         {
             return View();
@@ -73,6 +75,7 @@ namespace Sistema_de_Tienda.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Correo,Contrasena,DireccionPrincipal,Dui,FechaNacimiento,Telefono,FechaRegistro,Role")] Cliente cliente)
         {
             if (ModelState.IsValid)
@@ -80,7 +83,7 @@ namespace Sistema_de_Tienda.Controllers
                 cliente.Contrasena = CalcularHashMD5(cliente.Contrasena);
                 _context.Add(cliente);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(cliente);
         }
