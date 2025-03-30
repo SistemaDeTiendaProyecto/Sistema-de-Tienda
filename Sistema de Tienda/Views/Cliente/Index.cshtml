@@ -62,12 +62,10 @@
                     <tr class="text-center">
                         <th>@Html.DisplayNameFor(model => model.Nombre)</th>
                         <th>@Html.DisplayNameFor(model => model.Correo)</th>
-                        <th>@Html.DisplayNameFor(model => model.Contrasena)</th>
-                        <th>@Html.DisplayNameFor(model => model.DireccionPrincipal)</th>
                         <th>@Html.DisplayNameFor(model => model.Dui)</th>
-                        <th>@Html.DisplayNameFor(model => model.FechaNacimiento)</th>
                         <th>@Html.DisplayNameFor(model => model.Telefono)</th>
-                        <th>@Html.DisplayNameFor(model => model.FechaRegistro)</th>
+                        <th>@Html.DisplayNameFor(model => model.DireccionPrincipal)</th>
+                        <th>@Html.DisplayNameFor(model => model.Role)</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -77,12 +75,10 @@
                         <tr>
                             <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                             <td>@Html.DisplayFor(modelItem => item.Correo)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Contrasena)</td>
-                            <td>@Html.DisplayFor(modelItem => item.DireccionPrincipal)</td>
                             <td>@Html.DisplayFor(modelItem => item.Dui)</td>
-                            <td>@Html.DisplayFor(modelItem => item.FechaNacimiento)</td>
                             <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
-                            <td>@Html.DisplayFor(modelItem => item.FechaRegistro)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DireccionPrincipal)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Role)</td>
                             <td class="text-center">
                                 <div class="btn-group" role="group">
                                     <a asp-action="Edit" class="btn btn-sm btn-outline-primary me-2" asp-route-id="@item.Id">
