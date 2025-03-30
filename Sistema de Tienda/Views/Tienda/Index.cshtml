@@ -1,53 +1,517 @@
 ﻿@model IEnumerable<Sistema_de_Tienda.Models.Tienda>
 
-@{
-    ViewData["Title"] = "Index";
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Tienda - Tabla Premium</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts - Poppins -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Poppins/2.0.0/poppins.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3ccf4e;
+            --info: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #ef476f;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --gray-light: #e9ecef;
+            --gray: #adb5bd;
+        }
 
-<h1>Index</h1>
+        body {
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            background-color: #f1f5f9;
+            color: #333;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Logo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Direccion)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Logo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Direccion)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+
+            .dashboard-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 5px;
+                width: 100%;
+                background: linear-gradient(90deg, var(--primary), var(--info));
+            }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+            .page-title::after {
+                content: '';
+                position: absolute;
+                bottom: -8px;
+                left: 0;
+                width: 50px;
+                height: 3px;
+                background: var(--primary);
+                border-radius: 10px;
+            }
+
+        .btn-create-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-create {
+            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+            .btn-create::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, var(--info), var(--primary));
+                transition: all 0.4s ease;
+                z-index: -1;
+                border-radius: 50px;
+            }
+
+            .btn-create:hover {
+                transform: translateY(-3px);
+                color: white;
+            }
+
+                .btn-create:hover::before {
+                    left: 0;
+                }
+
+            .btn-create:active {
+                transform: translateY(0);
+            }
+
+        .table-container {
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .table {
+            margin-bottom: 0;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+            .table thead {
+                background: linear-gradient(90deg, var(--primary) 0%, var(--info) 100%);
+            }
+
+                .table thead th {
+                    color: white;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    font-size: 0.8rem;
+                    letter-spacing: 1px;
+                    padding: 1.2rem 1rem;
+                    border: none;
+                    position: relative;
+                }
+
+                    .table thead th:after {
+                        content: '';
+                        position: absolute;
+                        right: 0;
+                        top: 30%;
+                        height: 40%;
+                        width: 1px;
+                        background-color: rgba(255, 255, 255, 0.3);
+                    }
+
+                    .table thead th:last-child:after {
+                        display: none;
+                    }
+
+            .table tbody tr {
+                transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                border-bottom: 1px solid var(--gray-light);
+            }
+
+                .table tbody tr:last-child {
+                    border-bottom: none;
+                }
+
+                .table tbody tr:hover {
+                    background-color: rgba(67, 97, 238, 0.04);
+                    transform: translateY(-2px);
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                    z-index: 10;
+                    position: relative;
+                }
+
+            .table tbody td {
+                padding: 1.2rem 1rem;
+                vertical-align: middle;
+                color: #495057;
+                font-size: 0.95rem;
+                border-top: none;
+                position: relative;
+            }
+
+        .action-column {
+            text-align: right;
+            width: 240px;
+        }
+
+        .action-btn-group {
+            display: inline-flex;
+            gap: 8px;
+        }
+
+        .btn-action {
+            border-radius: 50px;
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border: none;
+        }
+
+        .btn-edit {
+            background-color: rgba(248, 150, 30, 0.1);
+            color: var(--warning);
+        }
+
+            .btn-edit:hover {
+                background-color: var(--warning);
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(248, 150, 30, 0.25);
+            }
+
+        .btn-details {
+            background-color: rgba(76, 201, 240, 0.1);
+            color: var(--info);
+        }
+
+            .btn-details:hover {
+                background-color: var(--info);
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(76, 201, 240, 0.25);
+            }
+
+        .btn-delete {
+            background-color: rgba(239, 71, 111, 0.1);
+            color: var(--danger);
+        }
+
+            .btn-delete:hover {
+                background-color: var(--danger);
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(239, 71, 111, 0.25);
+            }
+
+        .table-empty-state {
+            padding: 3rem;
+            text-align: center;
+            color: var(--gray);
+        }
+
+        .table-empty-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--gray-light);
+        }
+
+        .empty-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .table-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1rem;
+            background-color: #f8f9fa;
+            font-size: 0.85rem;
+            color: var(--gray);
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-active {
+            background-color: rgba(60, 207, 78, 0.1);
+            color: var(--secondary);
+        }
+
+        /* Animación para filas */
+  
+
+        {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        }
+
+        .animate-row {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        /* Estado "Sin datos" */
+        .no-data {
+            padding: 3rem;
+            text-align: center;
+        }
+
+            .no-data i {
+                font-size: 4rem;
+                color: #dee2e6;
+                margin-bottom: 1rem;
+            }
+
+        .no-data-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 0.5rem;
+        }
+
+        .no-data-text {
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.85rem;
+            padding: 1.5rem 0;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+
+            .footer a {
+                color: var(--primary);
+                font-weight: 500;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+                .footer a:hover {
+                    color: var(--primary-light);
+                }
+
+        /* Estilos para dispositivos móviles */
+
+
+        {
+            width: auto;
+        }
+
+        .btn-action {
+            padding: 6px 12px;
+        }
+
+        }
+
+        {
+            padding: 1rem;
+        }
+
+        .dashboard-card {
+            padding: 1.5rem;
+        }
+
+        .action-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .btn-action {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .table-responsive {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-card">
+            <div class="page-header">
+                <h1 class="page-title">Gestión de Tiendas</h1>
+                <div class="btn-create-container">
+                    <a asp-action="Create" class="btn btn-create">
+                        <i class="fas fa-plus-circle"></i> Crear Nueva Tienda
+                    </a>
+                </div>
+            </div>
+
+            <div class="table-responsive table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Logo</th>
+                            <th>Email</th>
+                            <th>Dirección</th>
+                            <th class="action-column">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Esta sección mantiene la estructura ASP.NET original -->
+                        @foreach (var item in Model)
+                        {
+                            <tr class="animate-row">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="status-indicator me-2 status-active"></div>
+                                        <strong>@Html.DisplayFor(modelItem => item.Nombre)</strong>
+                                    </div>
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.Logo)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
+                                <td class="action-column">
+                                    <div class="action-btn-group">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-action btn-edit">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-action btn-details">
+                                            <i class="fas fa-info-circle"></i> Detalles
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-action btn-delete">
+                                            <i class="fas fa-trash-alt"></i> Eliminar
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                        <!-- Si no hay datos, mostrar este estado -->
+                        @if (Model.Count() == 0)
+                        {
+                            <tr>
+                                <td colspan="5">
+                                    <div class="no-data">
+                                        <i class="fas fa-store-slash"></i>
+                                        <h3 class="no-data-title">No hay tiendas registradas</h3>
+                                        <p class="no-data-text">Crea una nueva tienda para comenzar</p>
+                                        <a asp-action="Create" class="btn btn-create">
+                                            <i class="fas fa-plus-circle"></i> Crear Nueva Tienda
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <!-- Pie de la tabla con información adicional -->
+                <div class="table-footer">
+                    <div>
+                        Mostrando <span class="fw-bold">@Model.Count()</span> tiendas
+                    </div>
+                    <div>
+                        Última actualización: <span class="fw-bold">@DateTime.Now.ToString("dd/MM/yyyy HH:mm")</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+
+    <!-- Bootstrap Bundle con Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Añadir retraso a la animación de las filas para un efecto en cascada
+        document.addEventListener('DOMContentLoaded', function() {
+            const rows = document.querySelectorAll('.animate-row');
+            rows.forEach((row, index) => {
+                row.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
