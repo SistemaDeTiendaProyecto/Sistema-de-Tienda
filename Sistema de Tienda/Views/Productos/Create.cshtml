@@ -58,7 +58,7 @@
     </div>
 </form> *@
 
-<form asp-action="Create">
+<form asp-action="Create" enctype="multipart/form-data">
     <div class="container m-50 mt-10 mh-300">
     <p class="text-muted text-left">Crear Productos</p>
         <!-- Fila superior: columna izquierda para imagen, columna derecha para los tres inputs -->
@@ -71,7 +71,7 @@
                     <p class="text-muted text-center">Área para imagen</p>
 
                      <div class="text-center">
-                        <img src="data:image/webp;base64,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" alt="vista previa">
+                        <img id="imagePreview" src="" alt="vista previa">
 
                      </div>
                      
@@ -80,7 +80,7 @@
                             <label for="image-upload" class="btn btn-outline-secondary">
                                 <i class="fas fa-upload me-2"></i> Subir imagen
                             </label>
-                            <input type="file" id="image-upload" accept="image/*" style="display: none;">
+                            <input type="file" id="image-upload" accept="image/*"  style="display: none;"/>
                             <p id="file-name" class="mt-2"></p>
                     </div>
                 </div>
@@ -172,6 +172,27 @@
 </form>
 
 
+<script>
+    document.getElementById('image-upload').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        @* const preview = document.getElementById('preview'); *@
+        const imagePreview = document.getElementById('imagePreview');
+
+        if (file) {
+            const fileReader = new FileReader();
+
+            fileReader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                @* preview.style.display = 'block'; *@
+            };
+
+            fileReader.readAsDataURL(file);
+        } else {
+            imagenPrevia.src = '#';
+            @* preview.style.display = 'none'; *@
+        }
+    });
+</script>
 
 
 
