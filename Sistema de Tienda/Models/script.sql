@@ -92,3 +92,7 @@ CREATE TABLE Facturas (
     FOREIGN KEY (IdCliente) REFERENCES Clientes(id)
 );
 GO
+
+ALTER TABLE Clientes
+ADD Role VARCHAR(50) NOT NULL
+DEFAULT 'CLIENTE';
