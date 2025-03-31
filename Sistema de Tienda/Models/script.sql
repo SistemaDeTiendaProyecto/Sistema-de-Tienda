@@ -7,7 +7,6 @@ USE SistemaTienda;
 CREATE TABLE Tiendas (
     id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     Nombre VARCHAR(90) NOT NULL,
-    Logo VARBINARY(MAX) NULL,
     Email VARCHAR(100) NULL,
     Direccion VARCHAR(200) NOT NULL
 );
