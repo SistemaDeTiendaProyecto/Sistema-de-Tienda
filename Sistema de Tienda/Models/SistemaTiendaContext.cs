@@ -193,7 +193,6 @@ public partial class SistemaTiendaContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Producto__3213E83F434EB159");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.Activo).HasColumnName("activo");
             entity.Property(e => e.Descripcion)

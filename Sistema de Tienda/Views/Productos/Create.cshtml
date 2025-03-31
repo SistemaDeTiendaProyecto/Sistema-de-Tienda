@@ -7,7 +7,7 @@
 
 
 
-@* <form asp-action="Create">
+ <form asp-action="Create" enctype="multipart/form-data">
    <div class="form-row  bg-primary"  >
     <div class="col-md-4">
       
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
+                <input asp-for="Image" type="file" id="imageFile" name="file" class="form-control" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -56,9 +56,9 @@
             </div>
         </div>
     </div>
-</form> *@
+</form> 
 
-<form asp-action="Create" enctype="multipart/form-data">
+@* <form asp-action="Create" enctype="multipart/form-data">
 
     <div class="container m-50 mt-10 mh-300">
     <p class="text-muted text-left">Crear Productos YYY</p>
@@ -77,10 +77,10 @@
                      </div>
 
                       <div class="text-center mt-3">
-                             <label for="image-upload" class="btn btn-outline-secondary">
+                             <label for="imageFile" class="btn btn-outline-secondary">
                                  <i class="fas fa-upload me-2"></i> Subir imagen
                              </label>
-                             <input type="file" id="image-upload" accept="image/*"  name="file" style="display: none;"/>
+                             <input type="file" id="imageFile" name="file" accept="image/*"  name="file" style="display: none;"/>
                              <p id="file-name" class="mt-2"></p>
                      </div>
                      
@@ -93,11 +93,7 @@
             <div class="col-md-4">
                 <div class="bg-white  h-100 ">
                     <!-- Aquí irán los tres inputs -->
-                     <div class="form-group ">
-                        <label asp-for="Id" class="control-label"></label>
-                        <input asp-for="Id" class="form-control" />
-                        <span asp-validation-for="Id" class="text-danger"></span>
-                    </div>
+                     
 
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
           
@@ -173,14 +169,14 @@
 
 
         </div>
-    </div>
+    </div> *@
 
 
 
 
 
 <script>
-    document.getElementById('image-upload').addEventListener('change', function (event) {
+    document.getElementById('imageFile').addEventListener('change', function (event) {
         const file = event.target.files[0];
         @* const preview = document.getElementById('preview'); *@
         const imagePreview = document.getElementById('imagePreview');

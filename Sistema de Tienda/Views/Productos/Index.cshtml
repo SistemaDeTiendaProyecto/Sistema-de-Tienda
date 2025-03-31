@@ -45,8 +45,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
+               <td>
+                    @if (item.Image != null && item.Image.Length>0){
+                        string base64Image = Convert.ToBase64String(item.Image);
+                        string imageUrl = $"data:image/png;base64,{base64Image}";
+                        <img src="@imageUrl" alt="Imagen" style="max-width: 75px; max-height: 75px;" />
+                    }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)

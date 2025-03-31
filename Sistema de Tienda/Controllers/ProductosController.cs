@@ -11,6 +11,8 @@ using Sistema_de_Tienda.Models;
 
 namespace Sistema_de_Tienda.Controllers
 {
+
+ 
     
     public class ProductosController : Controller
     {
@@ -20,6 +22,21 @@ namespace Sistema_de_Tienda.Controllers
         {
             _context = context;
         }
+
+            public async Task<byte[]?> GenerarByteImage(IFormFile? file, byte[]?  bytesImage =null)
+        {
+            byte[]? bytes = bytesImage;
+            if (file != null && file.Length > 0)
+            {
+                // Construir la ruta del archivo               
+                using (var memoryStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(memoryStream);
+                    bytes= memoryStream.ToArray(); // Devuelve los bytes del archivo
+                }
+            }
+            return bytes;
+        }   
 
            
 
@@ -77,17 +94,39 @@ namespace Sistema_de_Tienda.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         
-        public async Task<IActionResult> Create([Bind("Id,IdCategoria,IdTienda,Nombre,Image,Descripcion,Precio,Stock,Activo")] Producto producto)
+        public async Task<IActionResult> Create([Bind("IdCategoria,IdTienda,Nombre,Image,Descripcion,Precio,Stock,Activo")] Producto producto, IFormFile? file = null)
         {
-            if (ModelState.IsValid)
-            {
+             Console.WriteLine($"IdCategoria: {producto.IdCategoria}");
+                Console.WriteLine($"IdTienda: {producto.IdTienda}");
+                Console.WriteLine($"Nombre: {producto.Nombre}");
+                Console.WriteLine($"Image: {producto.Image}");
+      
+                Console.WriteLine($"Image: {file}");
+                Console.WriteLine($"Descripcion: {producto.Descripcion}");
+                Console.WriteLine($"Precio: {producto.Precio}");
+                Console.WriteLine($"Stock: {producto.Stock}");
+                Console.WriteLine($"Activo: {producto.Activo}");
+
+                 producto.IdCategoria = producto.IdCategoria;
+                    producto.IdTienda = producto.IdTienda;
+                    producto.Nombre = producto.Nombre;
+                    producto.Descripcion = producto.Descripcion;
+                    producto.Precio = producto.Precio;
+                    producto.Stock = producto.Stock;
+                    producto.Activo = producto.Activo;
+
+                
+
+                 producto.Image = await GenerarByteImage(file);
+                 Console.WriteLine($"Image: {producto.Image}");
                 _context.Add(producto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "Id", "Nombre", producto.IdCategoria);
-            ViewData["IdTienda"] = new SelectList(_context.Tiendas, "Id", "Nombre", producto.IdTienda);
-            return View(producto);
+            
+
+            // ViewData["IdCategoria"] = new SelectList(_context.Categorias, "Id", "Nombre", producto.IdCategoria);
+            // ViewData["IdTienda"] = new SelectList(_context.Tiendas, "Id", "Nombre", producto.IdTienda);
+            // return View(producto);
         }
 
         // GET: Productos/Edit/5
