@@ -26,15 +26,15 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Index">Clientes</a>
-                        </li>
                         @if(User.Identity.IsAuthenticated){
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Tienda" asp-action="Index">Tienda</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Productos" asp-action="Index">productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Index">Clientes</a>
                         </li>
                         }
                     </ul>
