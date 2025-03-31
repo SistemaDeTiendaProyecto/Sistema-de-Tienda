@@ -15,7 +15,7 @@ using System.Text;
 
 namespace Sistema_de_Tienda.Controllers
 {
-    [Authorize(Roles = "ADMINISTRADOR")]
+   // [Authorize(Roles = "ADMINISTRADOR")]
     public class ClienteController : Controller
     {
         private readonly SistemaTiendaContext _context;
