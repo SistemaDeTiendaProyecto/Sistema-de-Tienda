@@ -10,7 +10,7 @@ using Sistema_de_Tienda.Models;
 
 namespace Sistema_de_Tienda.Controllers
 {
-    [Authorize]
+   
     public class TiendaController : Controller
     {
         private readonly SistemaTiendaContext _context;
@@ -21,9 +21,24 @@ namespace Sistema_de_Tienda.Controllers
         }
 
         // GET: Tienda
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(Tienda tienda, int topRegistro = 10)
         {
-            return View(await _context.Tiendas.ToListAsync());
+            var query = _context.Tiendas.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(tienda.Nombre))
+                query = query.Where(s => s.Nombre.Contains(tienda.Nombre));
+            if (!string.IsNullOrWhiteSpace(tienda.Email))
+                query = query.Where(s => s.Email.Contains(tienda.Email));
+            if (!string.IsNullOrWhiteSpace(tienda.Direccion))
+                query = query.Where(s => s.Direccion.Contains(tienda.Direccion));
+            if (tienda.Id > 0)
+                query = query.Where(s => s.Id == tienda.Id);
+            if (tienda.Id > 0)
+                query = query.Where(s => s.Id == tienda.Id);
+            if (topRegistro > 0)
+                query = query.Take(topRegistro);
+
+            return View(await query.ToListAsync());
         }
 
         // GET: Tienda/Details/5

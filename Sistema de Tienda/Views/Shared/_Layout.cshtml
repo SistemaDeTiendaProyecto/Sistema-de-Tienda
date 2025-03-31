@@ -41,12 +41,12 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         var nombre = User.FindFirst("Nombre")?.Value;
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="CerrarSession">Cerrar session</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="CerrarSession">Cerrar sesión</a>
                         <span>@nombre</span>
                     }
                     else
                     {
-                        <a class="btn btn-outline-info" asp-area="" asp-controller="Cliente" asp-action="Login">Iniciar session</a>
+                        <a class="btn btn-outline-info" asp-area="" asp-controller="Cliente" asp-action="Login">Iniciar sesión</a>
                     }
                 </div>
             </div>
