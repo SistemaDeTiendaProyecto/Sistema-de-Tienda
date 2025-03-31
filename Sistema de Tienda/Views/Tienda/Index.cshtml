@@ -46,11 +46,11 @@
         }
 
         .dashboard-container {
-            width: 124%;
+            width: 120%;
             margin: 0 auto;
             padding: 2rem;
             position: relative;
-            right:12%;
+            right:10%;
         }
 
         .dashboard-card {
@@ -523,10 +523,10 @@
 			text-transform: uppercase;
 			letter-spacing: 1px;
 			box-shadow: 0 4px 6px rgba(67, 97, 238, 0.3);
-			position: absolute;
+			position: relative;
 			overflow: hidden;
-			width: 63%;
-			top: 71%;
+			width: 100%;
+			top: 5%;
 		}
 
 			.search-button:hover {
@@ -709,21 +709,7 @@
                         }
 
                         <!-- Si no hay datos, mostrar este estado -->
-                        @if (Model.Count() == 0)
-                        {
-                            <tr>
-                                <td colspan="5">
-                                    <div class="no-data">
-                                        <i class="fas fa-store-slash"></i>
-                                        <h3 class="no-data-title">No hay tiendas registradas</h3>
-                                        <p class="no-data-text">Crea una nueva tienda para comenzar</p>
-                                        <a asp-action="Create" class="btn btn-create">
-                                            <i class="fas fa-plus-circle"></i> Crear Nueva Tienda
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
+                        
                     </tbody>
                 </table>
 
