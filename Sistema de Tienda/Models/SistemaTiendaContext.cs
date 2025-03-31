@@ -231,9 +231,6 @@ public partial class SistemaTiendaContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .IsUnicode(false);
-            entity.Property(e => e.Logo)
-                .HasMaxLength(2000)
-                .IsUnicode(false);
             entity.Property(e => e.Nombre)
                 .HasMaxLength(90)
                 .IsUnicode(false);
