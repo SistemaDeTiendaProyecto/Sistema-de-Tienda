@@ -31,12 +31,11 @@ public partial class SistemaTiendaContext : DbContext
 
     public virtual DbSet<Tienda> Tiendas { get; set; }
 
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Categoria>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Categori__3213E83FCED191B5");
+            entity.HasKey(e => e.Id).HasName("PK__Categori__3213E83FFB9C557C");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -49,7 +48,7 @@ public partial class SistemaTiendaContext : DbContext
 
         modelBuilder.Entity<Cliente>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Clientes__3213E83F26B1E013");
+            entity.HasKey(e => e.Id).HasName("PK__Clientes__3213E83F5B3AAB16");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -73,6 +72,10 @@ public partial class SistemaTiendaContext : DbContext
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.Role)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasDefaultValue("CLIENTE");
             entity.Property(e => e.Telefono)
                 .HasMaxLength(8)
                 .IsUnicode(false)
@@ -81,7 +84,7 @@ public partial class SistemaTiendaContext : DbContext
 
         modelBuilder.Entity<DetallesPedido>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Detalles__3213E83FB41E6B6F");
+            entity.HasKey(e => e.Id).HasName("PK__Detalles__3213E83FCC2F5CCB");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -92,17 +95,17 @@ public partial class SistemaTiendaContext : DbContext
             entity.HasOne(d => d.IdPedidoNavigation).WithMany(p => p.DetallesPedidos)
                 .HasForeignKey(d => d.IdPedido)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DetallesP__IdPed__47DBAE45");
+                .HasConstraintName("FK__DetallesP__IdPed__5165187F");
 
             entity.HasOne(d => d.IdProductoNavigation).WithMany(p => p.DetallesPedidos)
                 .HasForeignKey(d => d.IdProducto)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DetallesP__IdPro__48CFD27E");
+                .HasConstraintName("FK__DetallesP__IdPro__52593CB8");
         });
 
         modelBuilder.Entity<Factura>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Facturas__3213E83F0149C359");
+            entity.HasKey(e => e.Id).HasName("PK__Facturas__3213E83F86F6E8C3");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -121,22 +124,22 @@ public partial class SistemaTiendaContext : DbContext
             entity.HasOne(d => d.IdClienteNavigation).WithMany(p => p.Facturas)
                 .HasForeignKey(d => d.IdCliente)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Facturas__IdClie__5812160E");
+                .HasConstraintName("FK__Facturas__IdClie__619B8048");
 
             entity.HasOne(d => d.IdPagoNavigation).WithMany(p => p.Facturas)
                 .HasForeignKey(d => d.IdPago)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Facturas__IdPago__571DF1D5");
+                .HasConstraintName("FK__Facturas__IdPago__60A75C0F");
 
             entity.HasOne(d => d.IdPedidoNavigation).WithMany(p => p.Facturas)
                 .HasForeignKey(d => d.IdPedido)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Facturas__IdPedi__5629CD9C");
+                .HasConstraintName("FK__Facturas__IdPedi__5FB337D6");
         });
 
         modelBuilder.Entity<Pago>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Pagos__3213E83F595E47F6");
+            entity.HasKey(e => e.Id).HasName("PK__Pagos__3213E83F24375722");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -155,17 +158,17 @@ public partial class SistemaTiendaContext : DbContext
             entity.HasOne(d => d.IdClienteNavigation).WithMany(p => p.Pagos)
                 .HasForeignKey(d => d.IdCliente)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Pagos__IdCliente__5070F446");
+                .HasConstraintName("FK__Pagos__IdCliente__59FA5E80");
 
             entity.HasOne(d => d.IdPedidoNavigation).WithMany(p => p.Pagos)
                 .HasForeignKey(d => d.IdPedido)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Pagos__IdPedido__4F7CD00D");
+                .HasConstraintName("FK__Pagos__IdPedido__59063A47");
         });
 
         modelBuilder.Entity<Pedido>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Pedidos__3213E83FF2E58D98");
+            entity.HasKey(e => e.Id).HasName("PK__Pedidos__3213E83F874A38E2");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -182,12 +185,12 @@ public partial class SistemaTiendaContext : DbContext
             entity.HasOne(d => d.IdClienteNavigation).WithMany(p => p.Pedidos)
                 .HasForeignKey(d => d.IdCliente)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Pedidos__Estado__44FF419A");
+                .HasConstraintName("FK__Pedidos__Estado__4E88ABD4");
         });
 
         modelBuilder.Entity<Producto>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Producto__3213E83FB9006DC5");
+            entity.HasKey(e => e.Id).HasName("PK__Producto__3213E83F434EB159");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -207,17 +210,17 @@ public partial class SistemaTiendaContext : DbContext
             entity.HasOne(d => d.IdCategoriaNavigation).WithMany(p => p.Productos)
                 .HasForeignKey(d => d.IdCategoria)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Productos__IdCat__3B75D760");
+                .HasConstraintName("FK__Productos__IdCat__44FF419A");
 
             entity.HasOne(d => d.IdTiendaNavigation).WithMany(p => p.Productos)
                 .HasForeignKey(d => d.IdTienda)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Productos__IdTie__3C69FB99");
+                .HasConstraintName("FK__Productos__IdTie__45F365D3");
         });
 
         modelBuilder.Entity<Tienda>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Tiendas__3213E83F5F7D0BD8");
+            entity.HasKey(e => e.Id).HasName("PK__Tiendas__3213E83FA2FCCFAA");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()

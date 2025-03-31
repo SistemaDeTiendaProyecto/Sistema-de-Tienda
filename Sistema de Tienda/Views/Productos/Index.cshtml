@@ -61,10 +61,10 @@
                 @Html.DisplayFor(modelItem => item.Activo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdCategoriaNavigation.Id)
+                @Html.DisplayFor(modelItem => item.IdCategoriaNavigation.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdTiendaNavigation.Id)
+                @Html.DisplayFor(modelItem => item.IdTiendaNavigation.Nombre)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -75,3 +75,5 @@
 }
     </tbody>
 </table>
+
+

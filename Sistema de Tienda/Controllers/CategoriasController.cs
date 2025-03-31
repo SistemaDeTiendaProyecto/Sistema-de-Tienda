@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,38 +9,22 @@ using Sistema_de_Tienda.Models;
 
 namespace Sistema_de_Tienda.Controllers
 {
-    [Authorize]
-    public class TiendaController : Controller
+    public class CategoriasController : Controller
     {
         private readonly SistemaTiendaContext _context;
 
-        public TiendaController(SistemaTiendaContext context)
+        public CategoriasController(SistemaTiendaContext context)
         {
             _context = context;
         }
 
-        // GET: Tienda
-
-        public async Task<IActionResult> Index(Tienda tienda, int topRegistro = 10)
+        // GET: Categorias
+        public async Task<IActionResult> Index()
         {
-            var query = _context.Tiendas.AsQueryable();
-            if (!string.IsNullOrWhiteSpace(tienda.Nombre))
-                query = query.Where(s => s.Nombre.Contains(tienda.Nombre));
-            if (!string.IsNullOrWhiteSpace(tienda.Email))
-                query = query.Where(s => s.Email.Contains(tienda.Email));
-            if (!string.IsNullOrWhiteSpace(tienda.Direccion))
-                query = query.Where(s => s.Direccion.Contains(tienda.Direccion));
-            if (tienda.Id > 0)
-                query = query.Where(s => s.Id == tienda.Id);
-            if (tienda.Id > 0)
-                query = query.Where(s => s.Id == tienda.Id);
-            if (topRegistro > 0)
-                query = query.Take(topRegistro);
-
-            return View(await query.ToListAsync());
+            return View(await _context.Categorias.ToListAsync());
         }
 
-        // GET: Tienda/Details/5
+        // GET: Categorias/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,39 +32,39 @@ namespace Sistema_de_Tienda.Controllers
                 return NotFound();
             }
 
-            var tienda = await _context.Tiendas
+            var categoria = await _context.Categorias
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tienda == null)
+            if (categoria == null)
             {
                 return NotFound();
             }
 
-            return View(tienda);
+            return View(categoria);
         }
 
-        // GET: Tienda/Create
+        // GET: Categorias/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Tienda/Create
+        // POST: Categorias/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Email,Direccion")] Tienda tienda)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion")] Categoria categoria)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tienda);
+                _context.Add(categoria);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(tienda);
+            return View(categoria);
         }
 
-        // GET: Tienda/Edit/5
+        // GET: Categorias/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,22 +72,22 @@ namespace Sistema_de_Tienda.Controllers
                 return NotFound();
             }
 
-            var tienda = await _context.Tiendas.FindAsync(id);
-            if (tienda == null)
+            var categoria = await _context.Categorias.FindAsync(id);
+            if (categoria == null)
             {
                 return NotFound();
             }
-            return View(tienda);
+            return View(categoria);
         }
 
-        // POST: Tienda/Edit/5
+        // POST: Categorias/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Email,Direccion")] Tienda tienda)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Descripcion")] Categoria categoria)
         {
-            if (id != tienda.Id)
+            if (id != categoria.Id)
             {
                 return NotFound();
             }
@@ -113,12 +96,12 @@ namespace Sistema_de_Tienda.Controllers
             {
                 try
                 {
-                    _context.Update(tienda);
+                    _context.Update(categoria);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TiendaExists(tienda.Id))
+                    if (!CategoriaExists(categoria.Id))
                     {
                         return NotFound();
                     }
@@ -129,10 +112,10 @@ namespace Sistema_de_Tienda.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(tienda);
+            return View(categoria);
         }
 
-        // GET: Tienda/Delete/5
+        // GET: Categorias/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -140,34 +123,34 @@ namespace Sistema_de_Tienda.Controllers
                 return NotFound();
             }
 
-            var tienda = await _context.Tiendas
+            var categoria = await _context.Categorias
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tienda == null)
+            if (categoria == null)
             {
                 return NotFound();
             }
 
-            return View(tienda);
+            return View(categoria);
         }
 
-        // POST: Tienda/Delete/5
+        // POST: Categorias/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tienda = await _context.Tiendas.FindAsync(id);
-            if (tienda != null)
+            var categoria = await _context.Categorias.FindAsync(id);
+            if (categoria != null)
             {
-                _context.Tiendas.Remove(tienda);
+                _context.Categorias.Remove(categoria);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TiendaExists(int id)
+        private bool CategoriaExists(int id)
         {
-            return _context.Tiendas.Any(e => e.Id == id);
+            return _context.Categorias.Any(e => e.Id == id);
         }
     }
 }

@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Sistema_de_Tienda.Models;
 
+
 namespace Sistema_de_Tienda.Controllers
 {
+    
     public class ProductosController : Controller
     {
         private readonly SistemaTiendaContext _context;
@@ -17,6 +20,8 @@ namespace Sistema_de_Tienda.Controllers
         {
             _context = context;
         }
+
+           
 
         // GET: Productos
         public async Task<IActionResult> Index()
@@ -48,16 +53,30 @@ namespace Sistema_de_Tienda.Controllers
         // GET: Productos/Create
         public IActionResult Create()
         {
-            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "Id", "Id");
-            ViewData["IdTienda"] = new SelectList(_context.Tiendas, "Id", "Id");
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "Id", "Nombre");
+            ViewData["IdTienda"] = new SelectList(_context.Tiendas, "Id", "Nombre");
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        //  public async Task<IActionResult> Create([Bind("ProductoId,Nombre,Descripcion,Precio")] Producto producto, IFormFile? file = null)
+        // {
+        //     if (ModelState.IsValid)
+        //     {
+        //         producto.Image = await GenerarByteImage(file);
+        //         _context.Add(producto);
+        //         await _context.SaveChangesAsync();
+        //         return RedirectToAction(nameof(Index));
+        //     }
+        //     return View(producto);
+        // }
 
         // POST: Productos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> Create([Bind("Id,IdCategoria,IdTienda,Nombre,Image,Descripcion,Precio,Stock,Activo")] Producto producto)
         {
             if (ModelState.IsValid)
@@ -66,8 +85,8 @@ namespace Sistema_de_Tienda.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "Id", "Id", producto.IdCategoria);
-            ViewData["IdTienda"] = new SelectList(_context.Tiendas, "Id", "Id", producto.IdTienda);
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "Id", "Nombre", producto.IdCategoria);
+            ViewData["IdTienda"] = new SelectList(_context.Tiendas, "Id", "Nombre", producto.IdTienda);
             return View(producto);
         }
 
