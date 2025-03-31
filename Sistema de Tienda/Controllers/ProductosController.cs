@@ -20,6 +20,21 @@ namespace Sistema_de_Tienda.Controllers
             _context = context;
         }
 
+         public async Task<byte[]?> GenerarByteImage(IFormFile? file, byte[]?  bytesImage =null)
+        {
+            byte[]? bytes = bytesImage;
+            if (file != null && file.Length > 0)
+            {
+                // Construir la ruta del archivo               
+                using (var memoryStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(memoryStream);
+                    bytes= memoryStream.ToArray(); // Devuelve los bytes del archivo
+                }
+            }
+            return bytes;
+        }       
+
         // GET: Productos
         public async Task<IActionResult> Index()
         {
@@ -50,28 +65,42 @@ namespace Sistema_de_Tienda.Controllers
         // GET: Productos/Create
         public IActionResult Create()
         {
-            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "Id", "Id");
-            ViewData["IdTienda"] = new SelectList(_context.Tiendas, "Id", "Id");
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "Id", "Nombre");
+            ViewData["IdTienda"] = new SelectList(_context.Tiendas, "Id", "Nombre");
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+         public async Task<IActionResult> Create([Bind("ProductoId,Nombre,Descripcion,Precio")] Producto producto, IFormFile? file = null)
+        {
+            if (ModelState.IsValid)
+            {
+                producto.Image = await GenerarByteImage(file);
+                _context.Add(producto);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(producto);
         }
 
         // POST: Productos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdCategoria,IdTienda,Nombre,Image,Descripcion,Precio,Stock,Activo")] Producto producto)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(producto);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "Id", "Id", producto.IdCategoria);
-            ViewData["IdTienda"] = new SelectList(_context.Tiendas, "Id", "Id", producto.IdTienda);
-            return View(producto);
-        }
+        
+        // public async Task<IActionResult> Create([Bind("Id,IdCategoria,IdTienda,Nombre,Image,Descripcion,Precio,Stock,Activo")] Producto producto)
+        // {
+        //     if (ModelState.IsValid)
+        //     {
+        //         _context.Add(producto);
+        //         await _context.SaveChangesAsync();
+        //         return RedirectToAction(nameof(Index));
+        //     }
+        //     ViewData["IdCategoria"] = new SelectList(_context.Categorias, "Id", "Nombre", producto.IdCategoria);
+        //     ViewData["IdTienda"] = new SelectList(_context.Tiendas, "Id", "Nombre", producto.IdTienda);
+        //     return View(producto);
+        // }
 
         // GET: Productos/Edit/5
         public async Task<IActionResult> Edit(int? id)

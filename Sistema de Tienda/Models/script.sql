@@ -1,7 +1,7 @@
-CREATE DATABASE SistemaTienda
+CREATE DATABASE SistemaTienda1
 GO
 
-USE SistemaTienda;
+USE SistemaTienda1;
 
 -- SI
 CREATE TABLE Tiendas (
@@ -25,7 +25,7 @@ CREATE TABLE Productos (
     IdCategoria INT NOT NULL,
     IdTienda INT NOT NULL,
     Nombre VARCHAR(20) NOT NULL,
-    Image VARCHAR(200) NOT NULL,
+    Image VARBINARY(MAX) NULL,
     Descripcion VARCHAR(200) NOT NULL,
     Precio DECIMAL(10,2) NOT NULL,
     Stock INT NOT NULL,
