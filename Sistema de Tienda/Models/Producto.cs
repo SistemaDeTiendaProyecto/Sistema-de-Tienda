@@ -13,7 +13,7 @@ public partial class Producto
 
     public string Nombre { get; set; } = null!;
 
-    public byte[]?  Image { get; set; } = null!;
+    public byte[]? Image { get; set; }
 
     public string Descripcion { get; set; } = null!;
 

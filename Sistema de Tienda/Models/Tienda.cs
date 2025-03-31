@@ -9,7 +9,6 @@ public partial class Tienda
 
     public string Nombre { get; set; } = null!;
 
-
     public string? Email { get; set; }
 
     public string Direccion { get; set; } = null!;
