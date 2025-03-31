@@ -70,7 +70,7 @@ namespace Sistema_de_Tienda.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Email,Direccion")] Tienda tienda)
+        public async Task<IActionResult> Create([Bind("Nombre,Email,Direccion")] Tienda tienda)
         {
             if (ModelState.IsValid)
             {
