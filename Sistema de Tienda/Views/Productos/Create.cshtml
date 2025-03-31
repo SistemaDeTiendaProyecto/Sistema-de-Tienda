@@ -71,8 +71,16 @@
                     <p class="text-muted text-center">Área para imagen</p>
 
                      <div class="text-center">
-                        <img id="imagePreview" src="" alt="vista previa">
+                        <img style="max-width: 50px; max-height: 100px;" id="imagePreview" src="" alt="vista previa">
 
+                     </div>
+
+                      <div class="text-center mt-3">
+                             <label for="image-upload" class="btn btn-outline-secondary">
+                                 <i class="fas fa-upload me-2"></i> Subir imagen
+                             </label>
+                             <input type="file" id="image-upload" accept="image/*"  style="display: none;"/>
+                             <p id="file-name" class="mt-2"></p>
                      </div>
                      
 

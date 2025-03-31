@@ -10,7 +10,7 @@ using Sistema_de_Tienda.Models;
 
 namespace Sistema_de_Tienda.Controllers
 {
-    [Authorize]
+    
     public class ProductosController : Controller
     {
         private readonly SistemaTiendaContext _context;
