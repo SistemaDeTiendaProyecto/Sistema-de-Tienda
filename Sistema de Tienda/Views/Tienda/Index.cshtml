@@ -12,6 +12,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts - Poppins -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/Poppins/2.0.0/poppins.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary: #4361ee;
@@ -24,11 +25,20 @@
             --light: #f8f9fa;
             --gray-light: #e9ecef;
             --gray: #adb5bd;
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #7209b7;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4cc9f0;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition-speed: 0.3s;
+        }
         }
 
         body {
             font-family: 'Poppins', 'Segoe UI', sans-serif;
-            background-color: #f1f5f9;
             color: #333;
             padding: 0;
             margin: 0;
@@ -36,9 +46,11 @@
         }
 
         .dashboard-container {
-            max-width: 1400px;
+            width: 124%;
             margin: 0 auto;
             padding: 2rem;
+            position: relative;
+            right:12%;
         }
 
         .dashboard-card {
@@ -49,7 +61,7 @@
             margin-bottom: 2rem;
             position: relative;
             overflow: hidden;
-            border: none;
+            border: 1px solid #4361ee;
         }
 
             .dashboard-card::before {
@@ -160,8 +172,8 @@
             }
 
                 .table thead th {
-                    color: black
-                    font-weight: 600;
+                    color: black;
+                    font-weight:600;
                     text-transform: uppercase;
                     font-size: 0.8rem;
                     letter-spacing: 1px;
@@ -314,17 +326,12 @@
         /* Animación para filas */
   
 
-        {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
         to {
             opacity: 1;
             transform: translateY(0);
         }
 
-        }
+        
 
         .animate-row {
             animation: fadeInUp 0.5s ease forwards;
@@ -375,21 +382,8 @@
                     color: var(--primary-light);
                 }
 
-        /* Estilos para dispositivos móviles */
-
-
-        {
-            width: auto;
-        }
-
         .btn-action {
             padding: 6px 12px;
-        }
-
-        }
-
-        {
-            padding: 1rem;
         }
 
         .dashboard-card {
@@ -412,63 +406,256 @@
             overflow: hidden;
         }
 
-        }
-    </style>
+		:root {
+			--bs-primary: #4361ee;
+			--bs-primary-rgb: 67, 97, 238;
+		}
+
+
+		.search-container {
+			background-color: white;
+			border-radius: var(--border-radius);
+			box-shadow: var(--box-shadow);
+			padding: 30px;
+			width: 100%;
+			max-width: 1500px;
+			transform: translateY(0);
+			transition: transform var(--transition-speed);
+            border: 1px solid #4361ee;
+		}
+
+			.search-container:hover {
+				transform: translateY(-5px);
+			}
+
+		.search-title {
+			color: var(--dark-color);
+			margin-bottom: 30px;
+			font-size: 32px;
+			font-weight: 700;
+			text-align: center;
+			position: relative;
+			padding-bottom: 15px;
+		}
+
+			.search-title::after {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 100px;
+				height: 4px;
+				background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+				border-radius: 2px;
+			}
+
+		.search-form {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+			gap: 20px;
+		}
+
+		.form-group {
+			margin-bottom: 20px;
+			position: relative;
+		}
+
+			.form-group label {
+				display: block;
+				margin-bottom: 8px;
+				color: var(--dark-color);
+				font-weight: 600;
+				font-size: 14px;
+				transform: translateY(0);
+				transition: transform var(--transition-speed);
+			}
+
+			.form-group:hover label {
+				transform: translateY(-2px);
+				color: var(--primary-color);
+			}
+
+		.form-control {
+			width: 100%;
+			padding: 15px 20px;
+			border: 2px solid #e0e0e0;
+			border-radius: var(--border-radius);
+			background-color: #f8f9fa;
+			color: var(--dark-color);
+			font-size: 16px;
+			transition: all var(--transition-speed);
+			outline: none;
+		}
+
+			.form-control:focus {
+				border-color: var(--primary-color);
+				box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.25);
+				background-color: white;
+			}
+
+		.form-group i {
+			position: absolute;
+			top: 42px;
+			left: 15px;
+			color: #adb5bd;
+			transition: color var(--transition-speed);
+		}
+
+		.form-group:hover i {
+			color: var(--primary-color);
+		}
+
+		.form-control-with-icon {
+			padding-left: 45px;
+		}
+
+		.search-button {
+			background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+			color: white;
+			border: none;
+			border-radius: var(--border-radius);
+			padding: 15px 30px;
+			font-size: 18px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: all var(--transition-speed);
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			box-shadow: 0 4px 6px rgba(67, 97, 238, 0.3);
+			position: absolute;
+			overflow: hidden;
+			width: 63%;
+			top: 71%;
+		}
+
+			.search-button:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 7px 14px rgba(67, 97, 238, 0.4);
+			}
+
+			.search-button:active {
+				transform: translateY(1px);
+			}
+
+			.search-button::after {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(255, 255, 255, 0.2);
+				transform: translateX(-100%);
+				transition: transform 0.6s;
+			}
+
+			.search-button:hover::after {
+				transform: translateX(100%);
+			}
+
+		.select-wrapper {
+			position: relative;
+		}
+
+			.select-wrapper::after {
+				content: '▼';
+				position: absolute;
+				top: 50%;
+				right: 15px;
+				transform: translateY(-50%);
+				color: #adb5bd;
+				pointer-events: none;
+				font-size: 12px;
+				transition: color var(--transition-speed);
+			}
+
+			.select-wrapper:hover::after {
+				color: var(--primary-color);
+			}
+
+		.search-title {
+			font-size: 24px;
+		}
+
+		}
+
+		.fade-in-element {
+			animation: fadeIn 0.8s ease-out forwards;
+		}
+
+		.delay-1 {
+			animation-delay: 0.1s;
+		}
+
+		.delay-2 {
+			animation-delay: 0.2s;
+		}
+
+		.delay-3 {
+			animation-delay: 0.3s;
+		}
+
+		.delay-4 {
+			animation-delay: 0.4s;
+		}
+
+		.delay-5 {
+			animation-delay: 0.5s;
+		}
+	</style>
 </head>
 <body>
 
-    <h1>Buscar productos</h1>
-    <form asp-action="Index">
-        <div class="row">
-            <div class="col-4">
-                <div class="form-group">
-                    <label class="control-label">Nombre</label>
-                    <input type="text" name="ProductName" class="form-control" />
-                </div>
-            </div>
-            <div class="col-8">
-                <div class="form-group">
-                    <label class="control-label">Descripcion</label>
-                    <textarea name="Description" class="form-control"></textarea>
-                </div>
+
+    <div class="search-container">
+        <h1 class="search-title fade-in-element">Buscar productos</h1>
+
+        <form class="search-form" action="" method="get" id="search-form">
+            <div class="form-group fade-in-element delay-1">
+                <label for="nombre" class="control-label">Nombre</label>
+                <i class="fas fa-user"></i>
+                <input type="text" name="nombre" id="nombre" class="form-control form-control-with-icon" placeholder="Ingrese nombre del producto">
             </div>
 
-        </div>
-        <div class="row">
-            <div class="col-4">
-                <div class="form-group">
-                    <label class="control-label">Marcas</label>
-                    <select name="BrandsId" class="form-control" asp-items="ViewBag.BrandsId"></select>
-                </div>
+            <div class="form-group fade-in-element delay-2">
+                <label for="email" class="control-label">Email</label>
+                <i class="fas fa-envelope"></i>
+                <input type="email" name="email" id="email" class="form-control form-control-with-icon" placeholder="Ingrese email">
             </div>
-            <div class="col-4">
-                <div class="form-group">
-                    <label class="control-label">Categorias</label>
-                    <select name="WarehouseId" class="form-control" asp-items="ViewBag.WarehouseId"></select>
-                </div>
+
+            <div class="form-group fade-in-element delay-3">
+                <label for="direccion" class="control-label">Dirección</label>
+                <i class="fas fa-map-marker-alt"></i>
+                <input type="text" name="direccion" id="direccion" class="form-control form-control-with-icon" placeholder="Ingrese dirección">
             </div>
-            <div class="col-4">
-                <div class="form-group">
-                    <label class="control-label">Cant. Registros</label>
-                    <select name="topRegistro" class="form-control">
-                        <option selected value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="60">60</option>
+
+            <div class="form-group fade-in-element delay-4">
+                <label for="registros" class="control-label">Cant. Registros</label>
+                <div class="select-wrapper">
+                    <select name="registros" id="registros" class="form-control">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
                         <option value="100">100</option>
-                        <option value="500">500</option>
                         <option value="1000">1000</option>
                         <option value="0">Todos</option>
                     </select>
                 </div>
             </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-12">
-                <input type="submit" value="Buscar" class="btn btn-primary" />
-                <a class="btn btn-info" asp-action="Create">Ir a crear</a>
+
+            <div class="button-container fade-in-element delay-5">
+                <button type="submit" class="search-button">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+
+
+      
+
+    <!--fin-->
 
 
     <div class="dashboard-container">
@@ -483,11 +670,10 @@
             </div>
 
             <div class="table-responsive table-container">
-                <table class="table">
+                <table class="table" id="myTable">
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Logo</th>
                             <th>Email</th>
                             <th>Dirección</th>
                             <th class="action-column">Acciones</th>
@@ -504,7 +690,6 @@
                                         <strong>@Html.DisplayFor(modelItem => item.Nombre)</strong>
                                     </div>
                                 </td>
-                                <td>@Html.DisplayFor(modelItem => item.Logo)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Email)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
                                 <td class="action-column">
@@ -567,6 +752,36 @@
                 row.style.animationDelay = `${index * 0.1}s`;
             });
         });
+
+        // Agregar clases para animación al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // La animación ya está configurada en el CSS con las clases delay
+        });
+
+        // Efecto de onda en el botón de búsqueda
+        const button = document.querySelector('.search-button');
+        button.addEventListener('mousedown', function(e) {
+            const x = e.clientX - e.target.getBoundingClientRect().left;
+            const y = e.clientY - e.target.getBoundingClientRect().top;
+
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+
+            this.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
     </script>
+    @section Scripts {
+        <script>
+            $('#myTable').DataTable({
+
+             });
+        </script>
+    }
 </body>
 </html>
