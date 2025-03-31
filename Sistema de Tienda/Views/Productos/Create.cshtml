@@ -6,7 +6,7 @@
 
 
 
-
+@* 
  <form asp-action="Create" enctype="multipart/form-data">
    <div class="form-row  bg-primary"  >
     <div class="col-md-4">
@@ -56,9 +56,9 @@
             </div>
         </div>
     </div>
-</form> 
+</form>  *@
 
-@* <form asp-action="Create" enctype="multipart/form-data">
+ <form asp-action="Create" enctype="multipart/form-data">
 
     <div class="container m-50 mt-10 mh-300">
     <p class="text-muted text-left">Crear Productos YYY</p>
@@ -80,7 +80,8 @@
                              <label for="imageFile" class="btn btn-outline-secondary">
                                  <i class="fas fa-upload me-2"></i> Subir imagen
                              </label>
-                             <input type="file" id="imageFile" name="file" accept="image/*"  name="file" style="display: none;"/>
+                            
+                              <input asp-for="Image" type="file" id="imageFile" name="file" class="form-control" />
                              <p id="file-name" class="mt-2"></p>
                      </div>
                      
@@ -169,7 +170,7 @@
 
 
         </div>
-    </div> *@
+    </div> 
 
 
 
