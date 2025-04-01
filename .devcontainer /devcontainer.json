@@ -1,0 +1,8 @@
+{
+    "name": "C# Blazor with SQL Server",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "forwardPorts": [1433, 5000, 5001],
+    "remoteUser": "vscode"
+}
