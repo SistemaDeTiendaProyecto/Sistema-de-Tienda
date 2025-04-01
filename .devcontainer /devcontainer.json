@@ -4,5 +4,12 @@
     "service": "app",
     "workspaceFolder": "/workspace",
     "forwardPorts": [1433, 5000, 5001],
+    "portsAttributes": {
+        "1433": {
+            "label": "SQL Server",
+            "onAutoForward": "notify",
+            "visibility": "public"
+        }
+    },
     "remoteUser": "vscode"
 }
