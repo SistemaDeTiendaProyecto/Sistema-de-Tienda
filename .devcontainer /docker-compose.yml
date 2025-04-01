@@ -1,0 +1,20 @@
+version: '3'
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/dotnet:7.0
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    network_mode: service:db
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Rabiot503
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    
+volumes:
+  sqlserver-data:
