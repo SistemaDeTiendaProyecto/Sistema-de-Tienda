@@ -98,6 +98,20 @@
       animation-duration: 0.5s;
     }
 
+    .store-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .header-section {
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header-section h1 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
 </style>
 
 <!-- fin del diseño -->
@@ -109,11 +123,16 @@
       <div class="col-md-8 col-lg-6">
         <div class="card form-card">
           <div class="card-header">
-            <h1 class="h3 mb-0">Edit</h1>
-            <h4 class="h5">Tienda</h4>
+
+          <div class="header-section">
+            <i class="fa-solid fa-pen-to-square store-icon"></i>
+            <h1>Editar</h1>
+           </div>
           </div>
-          
+
+        
           <div class="card-body">
+             <h4 class="mb-4 text-center">Tienda</h4>
             <form asp-action="Edit" class="needs-validation" novalidate>
               <div asp-validation-summary="ModelOnly" class="alert alert-danger" style="display: none;"></div>
               <input type="hidden" asp-for="Id" />
