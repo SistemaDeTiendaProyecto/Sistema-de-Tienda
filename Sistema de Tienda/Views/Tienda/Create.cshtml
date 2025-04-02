@@ -1,44 +1,196 @@
 ﻿@model Sistema_de_Tienda.Models.Tienda
 
-@{
-    ViewData["Title"] = "Create";
-}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-<h1>Create</h1>
+<!--diseo del formulacio-->
 
-<h4>Tienda</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-           
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
+
+<style>
+.create-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background-color: white;
+        }
+        .header-section {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+         .header-section h1 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+        .header-section h4 {
+            font-weight: 300;
+            margin-bottom: 0;
+            opacity: 0.9;
+        }
+        .form-section {
+            padding: 2.5rem;
+        }
+        .form-control {
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 1px solid #e1e5ea;
+            box-shadow: none;
+            height: auto;
+            transition: all 0.3s;
+        }
+        .form-control:focus {
+            border-color: #2575fc;
+            box-shadow: 0 0 0 0.25rem rgba(37, 117, 252, 0.25);
+        }
+        .form-label {
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 0.5rem;
+        }
+
+         .form-group {
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+        .input-icon {
+            position: absolute;
+            top: 43px;
+            left: 15px;
+            color: #6c757d;
+        }
+        .has-icon .form-control {
+            padding-left: 40px;
+        }
+
+        .btn-create {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 30px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        .btn-create:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+        }
+
+         .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #6c757d;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .back-link:hover {
+            color: #2575fc;
+        }
+        .back-link i {
+            margin-right: 5px;
+        }
+        .text-danger {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+         .form-control.is-invalid {
+            border-color: #dc3545;
+            padding-right: calc(1.5em + 0.75rem);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+        .form-control.is-invalid:focus {
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+        }
+        .animated {
+            animation-duration: 0.5s;
+            animation-fill-mode: both;
+        }
+</style>
+
+<!--fin del diseño-->
+
+<!--estructura del formulario-->
+
+<div class="container">
+        <div class="create-container animated fadeIn">
+            <div class="header-section">
+                <h1>Create</h1>
+                <h4>Tienda</h4>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+            <div class="form-section">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <div class="form-group has-icon">
+                        <label asp-for="Nombre" class="form-label">Nombre</label>
+                        <i class="fas fa-store input-icon"></i>
+                        <input asp-for="Nombre" class="form-control" placeholder="Nombre de tu tienda" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group has-icon">
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input asp-for="Email" class="form-control" placeholder="tucorreo@ejemplo.com" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group has-icon">
+                        <label asp-for="Direccion" class="form-label">Dirección</label>
+                        <i class="fas fa-map-marker-alt input-icon"></i>
+                        <input asp-for="Direccion" class="form-control" placeholder="Dirección completa" />
+                        <span asp-validation-for="Direccion" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-create">
+                            <i class="fas fa-plus-circle me-2"></i>Crear Tienda
+                        </button>
+                    </div>
+                </form>
+                
+                <a asp-action="Index" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to List
+                </a>
             </div>
-            <div class="form-group">
-                <label asp-for="Direccion" class="control-label"></label>
-                <input asp-for="Direccion" class="form-control" />
-                <span asp-validation-for="Direccion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<!--fin del formulario-->
 
+
+
+<!--conexion de pagian -->
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<!--animacion-->
+
+<script>
+    $(document).ready(function() {
+            // Animación al cargar el formulario
+            setTimeout(function() {
+                $('.form-group').each(function(i) {
+                    $(this).delay(100 * i).animate({
+                        opacity: 1,
+                        top: 0
+                    }, 300);
+                });
+            }, 300);
+</script>
+
