@@ -50,7 +50,7 @@ namespace Sistema_de_Tienda.Controllers
         // GET: Pagos/Create
         public IActionResult Create()
         {
-            ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Contrasena");
+            ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Nombre");
             ViewData["IdPedido"] = new SelectList(_context.Pedidos, "Id", "Id");
             return View();
         }
@@ -68,7 +68,7 @@ namespace Sistema_de_Tienda.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Contrasena", pago.IdCliente);
+            ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Nombre", pago.IdCliente);
             ViewData["IdPedido"] = new SelectList(_context.Pedidos, "Id", "Id", pago.IdPedido);
             return View(pago);
         }
@@ -86,7 +86,7 @@ namespace Sistema_de_Tienda.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Contrasena", pago.IdCliente);
+            ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Nombre", pago.IdCliente);
             ViewData["IdPedido"] = new SelectList(_context.Pedidos, "Id", "Id", pago.IdPedido);
             return View(pago);
         }
@@ -123,7 +123,7 @@ namespace Sistema_de_Tienda.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Contrasena", pago.IdCliente);
+            ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Nombre", pago.IdCliente);
             ViewData["IdPedido"] = new SelectList(_context.Pedidos, "Id", "Id", pago.IdPedido);
             return View(pago);
         }
