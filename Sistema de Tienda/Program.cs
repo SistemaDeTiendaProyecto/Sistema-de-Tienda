@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SistemaTiendaContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Conn1"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Conn2"));
 });
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie((o) =>
 {

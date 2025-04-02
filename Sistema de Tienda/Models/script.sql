@@ -44,7 +44,8 @@ CREATE TABLE Clientes (
     DUI CHAR(9),
     FechaNacimiento DATE,
     Telefono CHAR(8),
-    FechaRegistro DATETIME DEFAULT CURRENT_TIMESTAMP
+    FechaRegistro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Role VARCHAR(50) NOT NULL
 );
 GO
 
