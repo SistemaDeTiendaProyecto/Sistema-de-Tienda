@@ -33,6 +33,7 @@ CREATE TABLE Productos (
     FOREIGN KEY (IdTienda) REFERENCES Tiendas(id)
 );
 GO
+
 -- SI
 CREATE TABLE Clientes (
     id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
@@ -46,6 +47,7 @@ CREATE TABLE Clientes (
     FechaRegistro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 GO
+
 CREATE TABLE Pedidos (
     id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     IdCliente INT NOT NULL,

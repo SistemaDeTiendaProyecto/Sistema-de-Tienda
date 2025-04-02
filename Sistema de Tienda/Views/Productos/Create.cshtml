@@ -5,59 +5,6 @@
 }
 
 
-
-@* 
- <form asp-action="Create" enctype="multipart/form-data">
-   <div class="form-row  bg-primary"  >
-    <div class="col-md-4">
-      
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-          
-            <div class="form-group col-md-6">
-                <label asp-for="IdCategoria" class="control-label"></label>
-                <select asp-for="IdCategoria" class ="form-control" asp-items="ViewBag.IdCategoria"></select>
-            </div>
-            <div class="form-group col-md-6">
-                <label asp-for="IdTienda" class="control-label"></label>
-                <select asp-for="IdTienda" class ="form-control" asp-items="ViewBag.IdTienda"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" type="file" id="imageFile" name="file" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
-                <span asp-validation-for="Precio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Stock" class="control-label"></label>
-                <input asp-for="Stock" class="form-control" />
-                <span asp-validation-for="Stock" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Activo" class="control-label"></label>
-                <input asp-for="Activo" class="form-control" />
-                <span asp-validation-for="Activo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </div>
-    </div>
-</form>  *@
-
 <style>
     .container{
         position: relative;
