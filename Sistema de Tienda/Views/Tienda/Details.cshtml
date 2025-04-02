@@ -1,36 +1,171 @@
 ﻿@model Sistema_de_Tienda.Models.Tienda
 
-@{
-    ViewData["Title"] = "Details";
-}
+<!-- diseño de la pagina -->
 
-<h1>Details</h1>
+<style>
+    .details-container {
+            max-width: 650px;
+            margin: 3rem auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background-color: white;
+        }
+        .header-section {
+            background: linear-gradient(135deg, #2196F3 0%, #4FC3F7 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header-section h1 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+        .store-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .content-section {
+            padding: 2rem;
+        }
+        .store-info {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid #2196F3;
+        }
+        dt {
+            font-weight: 600;
+            color: #444;
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+        }
+        dt i {
+            margin-right: 10px;
+            color: #2196F3;
+        }
+        dd {
+            padding: 0.5rem 0 1rem 2rem;
+            margin-bottom: 0.5rem;
+            color: #212529;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+        dd:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            height: 1.5rem;
+            width: 1px;
+            background: #dee2e6;
+            transform: translateY(-50%);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #2196F3 0%, #4FC3F7 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+        }
+        .back-link {
+            color: #6c757d;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .back-link:hover {
+            color: #2196F3;
+        }
+        .actions {
+            display: flex;
+            align-items: center;
+        }
+        .animated {
+            animation-duration: 0.5s;
+            animation-fill-mode: both;
+        }
+        .fadeIn {
+            animation-name: fadeIn;
+        }
+        .info-label {
+            color: #2196F3;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+        .info-value {
+            font-weight: 100;
+            top: 7px;
+            position: relative;
+            left: 30px;
+        }
+</style>
 
-<div>
-    <h4>Tienda</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Direccion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Direccion)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<!-- fin del diseño -->
+
+<!-- estructura de la pagina -->
+
+ <div class="container">
+        <div class="details-container animated fadeIn">
+            <div class="header-section">
+                <i class="fas fa-store store-icon"></i>
+                <h1>Detalles</h1>
+            </div>
+            
+            <div class="content-section">
+                <h4 class="mb-4 text-center">Tienda</h4>
+                
+                <dl class="row store-info">
+                    <dt class="col-sm-2">
+                        <i class="fas fa-tag"></i> Nombre
+                    </dt>
+                    <dd class="col-sm-10">
+                        <span class="info-value">@Html.DisplayFor(model => model.Nombre)</span>
+                    </dd>
+                    
+                    <dt class="col-sm-2">
+                        <i class="fas fa-envelope"></i> Email
+                    </dt>
+                    <dd class="col-sm-10">
+                        <span class="info-value">@Html.DisplayFor(model => model.Email)</span>
+                    </dd>
+                    
+                    <dt class="col-sm-2">
+                        <i class="fas fa-map-marker-alt"></i> Dirección
+                    </dt>
+                    <dd class="col-sm-10">
+                        <span class="info-value">@Html.DisplayFor(model => model.Direccion)</span>
+                    </dd>
+                </dl>
+                
+                <div class="actions">
+                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">
+                        <i class="fas fa-edit me-2"></i>Edit
+                    </a>
+                    <a asp-action="Index" class="back-link ms-3">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- fin de la estructura -->
+
+<!-- no borrar este codigo -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

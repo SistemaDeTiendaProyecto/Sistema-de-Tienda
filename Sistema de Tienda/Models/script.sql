@@ -33,6 +33,7 @@ CREATE TABLE Productos (
     FOREIGN KEY (IdTienda) REFERENCES Tiendas(id)
 );
 GO
+
 -- SI
 CREATE TABLE Clientes (
     id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
@@ -43,9 +44,11 @@ CREATE TABLE Clientes (
     DUI CHAR(9),
     FechaNacimiento DATE,
     Telefono CHAR(8),
-    FechaRegistro DATETIME DEFAULT CURRENT_TIMESTAMP
+    FechaRegistro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Role VARCHAR(50) NOT NULL
 );
 GO
+
 CREATE TABLE Pedidos (
     id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     IdCliente INT NOT NULL,

@@ -56,8 +56,12 @@
                             <label asp-for="Role" class="control-label"></label>
                             <select asp-for="Role" class="form-control">
                                 <option value="">SELECCIONAR</option>
+                            <option value="CLIENTE">CLIENTE</option>
+                                @if(User.Identity.IsAuthenticated){
+
                                 <option value="ADMINISTRADOR">ADMINISTRADOR</option>
-                                <option value="CLIENTE">CLIENTE</option>
+                                <option value="GERENTE">GERENTE</option>
+                                }
                             </select>
                             <span asp-validation-for="Role" class="text-danger"></span>
                         </div>
