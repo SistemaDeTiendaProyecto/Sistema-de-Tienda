@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using Sistema_de_Tienda.Models;
 
 namespace Sistema_de_Tienda.Controllers
 {
+    [Authorize(Roles = "ADMINISTRADOR, GERENTE")]
     public class CategoriasController : Controller
     {
         private readonly SistemaTiendaContext _context;
