@@ -9,45 +9,7 @@
     <link rel="stylesheet" href="~/Sistema_de_Tienda.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
-    <style>
-        html, body {
-            height: 100%;
-        }
-
-        .wrapper {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .content {
-            flex: 1;
-        }
-
-        .footer {
-            flex-shrink: 0;
-        }
-
-        .offcanvas-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-        }
-
-        .offcanvas-footer {
-            margin-top: auto;
-        }
-
-        .navbar-brand-container {
-            display: flex;
-            align-items: center;
-        }
-
-            .navbar-brand-container .client-name {
-                margin-left: 1rem;
-            }
-    </style>
+    <link href="~/css/_layout2.css" rel="stylesheet" />
 </head>
 <body>
     <div class="wrapper">
@@ -154,3 +116,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
