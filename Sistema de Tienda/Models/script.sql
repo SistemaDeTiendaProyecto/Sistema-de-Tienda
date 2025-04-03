@@ -44,8 +44,7 @@ CREATE TABLE Clientes (
     DUI CHAR(9),
     FechaNacimiento DATE,
     Telefono CHAR(8),
-    FechaRegistro DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Role VARCHAR(50) NOT NULL
+    FechaRegistro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 GO
 
@@ -102,5 +101,5 @@ DEFAULT 'CLIENTE';
 
 --Modificar  si es necesario
 INSERT INTO Clientes(Nombre, Correo,Contrasena, DireccionPrincipal, DUI,FechaNacimiento, Telefono, Role)
-VALUES('Francisco', 'fran123@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'Col sensu', 069192628,2006-01-01,70150013,'ADMINISTRADOR')
+VALUES('Francisco', 'fran123@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'Col sensu', 069192628,'2006-01-01',70150013,'ADMINISTRADOR')
 --Francisco	fran123@gmail.com	069192628	70150013	Col sensu	ADMINISTRADOR	827ccb0eea8a706c4c34a16891f84e7b
