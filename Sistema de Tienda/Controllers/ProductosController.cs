@@ -78,21 +78,6 @@ namespace Sistema_de_Tienda.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        //  public async Task<IActionResult> Create([Bind("ProductoId,Nombre,Descripcion,Precio")] Producto producto, IFormFile? file = null)
-        // {
-        //     if (ModelState.IsValid)
-        //     {
-        //         producto.Image = await GenerarByteImage(file);
-        //         _context.Add(producto);
-        //         await _context.SaveChangesAsync();
-        //         return RedirectToAction(nameof(Index));
-        //     }
-        //     return View(producto);
-        // }
-
-        // POST: Productos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         
         public async Task<IActionResult> Create([Bind("IdCategoria,IdTienda,Nombre,Image,Descripcion,Precio,Stock,Activo")] Producto producto, IFormFile? file = null)
         {

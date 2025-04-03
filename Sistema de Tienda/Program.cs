@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SistemaTiendaContext>(options =>
 {
 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Conn"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Conn1"));
 
 });
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie((o) =>
