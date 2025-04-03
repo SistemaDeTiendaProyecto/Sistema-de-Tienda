@@ -58,8 +58,11 @@
                                 <option value="">SELECCIONAR</option>
                             <option value="CLIENTE">CLIENTE</option>
                                 @if(User.Identity.IsAuthenticated){
-
+                                @if (User.IsInRole("ADMINISTRADOR"))
+                                {
                                 <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+                                }
+
                                 <option value="GERENTE">GERENTE</option>
                                 }
                             </select>
