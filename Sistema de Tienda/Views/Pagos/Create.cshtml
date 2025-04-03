@@ -13,10 +13,16 @@
                 <label asp-for="IdPedido" class="control-label">Nº de Pedido</label>
                 <select asp-for="IdPedido" class ="form-control" asp-items="ViewBag.IdPedido"></select>
             </div>
+
+        <!--
+            La parte de selección de cliente deberia de mostrar solo los nombres de quien posea el Rol de Cliente
+        -->
             <div class="form-group">
                 <label asp-for="IdCliente" class="control-label">Cliente</label>
                 <select asp-for="IdCliente" class ="form-control" asp-items="ViewBag.IdCliente"></select>
             </div>
+
+            <!---->
             <div class="form-group">
                 <label asp-for="MetodoPago" class="control-label">Metodo de Pago</label>
                 <input asp-for="MetodoPago" class="form-control" />

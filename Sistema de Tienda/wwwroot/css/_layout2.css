@@ -1,0 +1,49 @@
+﻿html, body {
+    height: 100%;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1;
+}
+
+.footer {
+    flex-shrink: 0;
+}
+
+.offcanvas-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.offcanvas-footer {
+    margin-top: auto;
+}
+
+.navbar-brand-container {
+    display: flex;
+    align-items: center;
+}
+
+    .navbar-brand-container .client-name {
+        margin-left: 1rem;
+    }
+
+.offcanvas {
+    width: 250px;
+}
+
+    .offcanvas .nav-link {
+        font-size: 1.2rem;
+    }
+
+        .offcanvas .nav-link i {
+            font-size: 1.5rem;
+        }
