@@ -1,3 +1,11 @@
+@model IEnumerable<Sistema_de_Tienda.Models.Producto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -149,76 +157,49 @@
                     
                     <!-- Products grid -->
                     <div class="row">
-                        <!-- Product 1 -->
-                        <div class="col-md-6 col-xl-6 mb-4">
+
+
+                    @foreach (var item in Model)
+                    {
+                         <div class="col-md-6 col-xl-6 mb-4">
                             <div class="product-card">
                                 <span class="badge-new">Destacado</span>
                                 <div class="product-image-container">
-                                    <img src="/api/placeholder/200/200" class="product-image" alt="Shampoo Head & Shoulders">
+
+                                     @if (item.Image != null && item.Image.Length > 0)
+                                {
+                                    string base64Image = Convert.ToBase64String(item.Image);
+                                    string imageUrl = $"data:image/png;base64,{base64Image}";
+
+                                     <img src="@imageUrl" class="product-image" alt="Shampoo Head & Shoulders">
+                                }
+
+                                   
                                 </div>
-                                <h5 class="product-title">Shampoo Head & Shoulders</h5>
+                                <h5 class="product-title">@Html.DisplayFor(modelItem => item.Nombre)</h5>
                                 <p class="available"><i class="fas fa-check-circle me-2"></i>Available</p>
                                 <div class="product-footer">
                                     <button class="add-to-cart-btn">
                                         <i class="fas fa-shopping-cart me-2"></i>Añadir
                                     </button>
-                                    <span class="product-price">$1.20</span>
+                                    <span class="product-price">@Html.DisplayFor(modelItem => item.Precio)</span>
                                 </div>
                             </div>
                         </div>
+
+
+                    }
+
+
+
+                        <!-- Product 1 -->
+                       
                         
-                        <!-- Product 2 -->
-                        <div class="col-md-6 col-xl-6 mb-4">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <img src="/api/placeholder/200/200" class="product-image" alt="Jabón Protex Fresh">
-                                </div>
-                                <h5 class="product-title">Jabón Protex Fresh</h5>
-                                <p class="out-of-stock"><i class="fas fa-times-circle me-2"></i>Out of Stock</p>
-                                <div class="product-footer">
-                                    <button class="add-to-cart-btn">
-                                        <i class="fas fa-shopping-cart me-2"></i>Añadir
-                                    </button>
-                                    <span class="product-price">$0.90</span>
-                                </div>
-                            </div>
-                        </div>
+                       
+                     
                         
-                        <!-- Product 3 -->
-                        <div class="col-md-6 col-xl-6 mb-4">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <img src="/api/placeholder/200/200" class="product-image" alt="Papel Higienico Scott">
-                                </div>
-                                <h5 class="product-title">Papel Higienico Scott 4</h5>
-                                <p class="out-of-stock"><i class="fas fa-times-circle me-2"></i>Out of Stock</p>
-                                <div class="product-footer">
-                                    <button class="add-to-cart-btn">
-                                        <i class="fas fa-shopping-cart me-2"></i>Añadir
-                                    </button>
-                                    <span class="product-price">$1.25</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 4 -->
-                        <div class="col-md-6 col-xl-6 mb-4">
-                            <div class="product-card">
-                                <span class="badge-new">Nuevo</span>
-                                <div class="product-image-container">
-                                    <img src="/api/placeholder/200/200" class="product-image" alt="Crema para peinar">
-                                </div>
-                                <h5 class="product-title">Crema para peinar</h5>
-                                <p class="available"><i class="fas fa-check-circle me-2"></i>Available</p>
-                                <div class="product-footer">
-                                    <button class="add-to-cart-btn">
-                                        <i class="fas fa-shopping-cart me-2"></i>Añadir
-                                    </button>
-                                    <span class="product-price">$2.00</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                      
+                      
                     
                     <!-- Paginacion -->
                     <nav aria-label="Page navigation" class="mt-4">
