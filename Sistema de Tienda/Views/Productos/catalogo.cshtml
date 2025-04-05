@@ -48,62 +48,18 @@
                     <h5 class="category-title">Categorias</h5>
                     
                     <ul class="category-list">
+
+                    @foreach (var item in Model)
+                    {   
                         <li class="d-flex justify-content-between align-items-center">
                             <div>
                                 <i class="fas fa-pump-soap category-icon"></i>
-                                <span>Cuidado personal</span>
+                                <span>@Html.DisplayFor(modelItem => item.IdCategoriaNavigation.Nombre)</span>
                             </div>
                             <span class="category-number">06</span>
                         </li>
-                        <li class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="fas fa-box category-icon"></i>
-                                <span>Plasticos</span>
-                            </div>
-                            <span class="category-number">07</span>
-                        </li>
-                        <li class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="fas fa-cookie category-icon"></i>
-                                <span>Churros</span>
-                            </div>
-                            <span class="category-number">08</span>
-                        </li>
-                        <li class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="fas fa-wine-bottle category-icon"></i>
-                                <span>Gaseosas</span>
-                            </div>
-                            <span class="category-number">05</span>
-                        </li>
-                        <li class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="fas fa-cut category-icon"></i>
-                                <span>Cabello</span>
-                            </div>
-                            <span class="category-number">03</span>
-                        </li>
-                        <li class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="fas fa-pepper-hot category-icon"></i>
-                                <span>Condimentos</span>
-                            </div>
-                            <span class="category-number">09</span>
-                        </li>
-                        <li class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="fas fa-home category-icon"></i>
-                                <span>Para el hogar</span>
-                            </div>
-                            <span class="category-number">11</span>
-                        </li>
-                        <li class="d-flex justify-content-between align-items-center active">
-                            <div>
-                                <i class="fas fa-shower category-icon"></i>
-                                <span>Baño</span>
-                            </div>
-                            <span class="category-number">07</span>
-                        </li>
+                    }
+                      
                     </ul>
                 </div>
                 
