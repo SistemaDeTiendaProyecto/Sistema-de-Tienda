@@ -36,16 +36,36 @@ namespace Sistema_de_Tienda.Controllers
                 }
             }
             return bytes;
-        }   
+        }
 
-           
+
 
         // GET: Productos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Nombre, string Categoria, string Tienda)
         {
-            var sistemaTiendaContext = _context.Productos.Include(p => p.IdCategoriaNavigation).Include(p => p.IdTiendaNavigation);
-            return View(await sistemaTiendaContext.ToListAsync());
+            var query = _context.Productos.Include(p => p.IdCategoriaNavigation).Include(p => p.IdTiendaNavigation).AsQueryable();
+
+            // Filtrar por Nombre
+            if (!string.IsNullOrWhiteSpace(Nombre))
+            {
+                query = query.Where(p => p.Nombre.Contains(Nombre));
+            }
+
+            // Filtrar por Categoría
+            if (!string.IsNullOrWhiteSpace(Categoria))
+            {
+                query = query.Where(p => p.IdCategoriaNavigation.Nombre.Contains(Categoria));
+            }
+
+            // Filtrar por Tienda
+            if (!string.IsNullOrWhiteSpace(Tienda))
+            {
+                query = query.Where(p => p.IdTiendaNavigation.Nombre.Contains(Tienda));
+            }
+
+            return View(await query.ToListAsync());
         }
+
 
         // GET: Productos/Details/5
         public async Task<IActionResult> Details(int? id)
