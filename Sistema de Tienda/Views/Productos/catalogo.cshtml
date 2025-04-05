@@ -4,6 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
+@{
+    // Extrae las categorías únicas de la lista de productos
+    var categoriasUnicas = Model.Select(p => p.IdCategoriaNavigation).Distinct().ToList();
+}
+
 
 
 <!DOCTYPE html>
@@ -21,6 +26,7 @@
     <link href="/css/catalogo.css" rel="stylesheet" />
 </head>
 <body>
+<<<<<<< HEAD
 
     <div class="main-container">
         <div class="row g-0">
@@ -34,6 +40,50 @@
                     <span class="input-group-text search-icon">
                         <i class="fas fa-search"></i>
                     </span>
+=======
+    <div class="container my-4">
+        <!-- Browser mock -->
+        <div class="browser-mockup">
+            <div class="browser-dots">
+                <div class="browser-dot browser-dot-red"></div>
+                <div class="browser-dot browser-dot-yellow"></div>
+                <div class="browser-dot browser-dot-green"></div>
+            </div>
+            <div class="text-center text-white pt-2">La Tienda Online</div>
+        </div>
+        
+        <div class="main-container">
+            <div class="row g-0">
+                <!-- Sidebar with categories -->
+                <div class="col-lg-3 sidebar">
+                    <h4 class="logo-text mb-4">Catalogo</h4>
+                    
+                    <div class="input-group mb-4">
+                        <input type="text" class="form-control custom-search-input" placeholder="Buscar productos...">
+                        <span class="input-group-text search-icon">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    
+                    <h5 class="category-title">Categorias</h5>
+                    
+                    <ul class="category-list">
+
+                  
+                    @foreach (var categoria in categoriasUnicas)
+                    {
+                            <li class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <i class="fas fa-pump-soap category-icon"></i>
+                                    <span>@categoria.Nombre</span> 
+                                </div>
+                                <span class="category-number">06</span> 
+                            </li>
+    
+                    }
+                      
+                    </ul>
+>>>>>>> f1a91182843092832c063323c168146f866a7369
                 </div>
                 
                 <h5 class="category-title">Categorias</h5>
