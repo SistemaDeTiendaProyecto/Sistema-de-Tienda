@@ -21,41 +21,50 @@
    <input type="hidden" asp-for="Id" />
 
     <div class="container m-50 mt-10 mh-300">
-    <p class="text-muted text-left">Crear Productos YYY</p>
+    <p class="text-muted text-left">Editar</p>
         <!-- Fila superior: columna izquierda para imagen, columna derecha para los tres inputs -->
         <div class="row mb-1">
             <!-- Columna izquierda (ocupa 6 de 12 columnas) -->
 
+           
             <div class="col-md-4 mt-">
                 <div class="bg-light  h-100 ">
                     <!-- Aquí irá la imagen y el input file -->
                     <p class="text-muted text-center">Área para imagen</p>
 
-                       @if (Model.Image != null && Model.Image.Length > 0)
+                     <div class="text-center">
+
+                        
+                        @if (Model.Image != null && Model.Image.Length > 0)
                                 {
                                     string base64Image = Convert.ToBase64String(Model.Image);
                                         string imageUrl = $"data:image/png;base64,{base64Image}";
 
-                                        <div class="text-center">
+                                        
                                             <img src="@imageUrl" style="width:30%; height:100px;" id="imagePreview" src="" alt="vista previa">
 
-                                        </div>
+                                        
                                 }
                                 else
                                 {
-                                    <div class="text-center">
+                                    
                                             <img src="#" style="width:30%; height:100px;" id="imagePreview" src="" alt="vista previa">
-                                    </div>
+                                   
                                 }
-
-                     
+                     </div>
 
                       <div class="text-center mt-3">
 
-                        <label for="image" class="btn btn-outline-secondary">
+                             <label for="imageFile" class="btn btn-outline-secondary">
                                  <i class="fas fa-upload me-2"></i> Subir imagen
-                        </label>
+                             </label>
+                            
+                              <input asp-for="Image" type="file" id="imageFile" name="file"  class="form-control" style="display: none; />
+                             <p id="file-name" class="mt-2"></p>
+                     </div>
+                     
 
+                     
                 </div>
             </div>
             
@@ -128,7 +137,7 @@
 
             <div clas="row ">
                 <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
 
     </form>
@@ -165,6 +174,8 @@
             @* preview.style.display = 'none'; *@
         }
     });
+
+
 </script>
 
 <div>

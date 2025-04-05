@@ -21,7 +21,8 @@ public partial class Producto
 
     public int Stock { get; set; }
 
-    public byte Activo { get; set; }
+
+    public byte Activo { get; set; } = 1 ;
 
     public virtual ICollection<DetallesPedido> DetallesPedidos { get; set; } = new List<DetallesPedido>();
 
