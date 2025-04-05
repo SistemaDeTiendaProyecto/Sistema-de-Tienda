@@ -35,7 +35,7 @@ public partial class Cliente
     public string? Telefono { get; set; }
 
     public DateTime? FechaRegistro { get; set; }
-
+    [Required(ErrorMessage = "El Rol es obligatorio")]
     public string Role { get; set; } = null!;
 
     public virtual ICollection<Factura> Facturas { get; set; } = new List<Factura>();

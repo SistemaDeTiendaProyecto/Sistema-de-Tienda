@@ -4,56 +4,92 @@
     ViewData["Title"] = "Pago";
 }
 
-<h1>Pagos</h1>
+<h1 class="text-center mb-4">Lista de Pagos</h1>
+<div class="card shadow-lg p-4">
+    <form asp-action="Index">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    <label class="control-label">Método de Pago</label>
+                    <input type="text" name="MetodoPago" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    <label class="control-label">Estado</label>
+                    <input type="text" name="Estado" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    <label class="control-label">Cliente</label>
+                    <input type="text" name="Cliente" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 text-center">
+                <input type="submit" value="Buscar" class="btn btn-primary mr-2" />
+                <a class="btn btn-info" asp-action="Create">Generar pago</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="card shadow-lg mt-4">
+    <div class="card-header bg-primary text-white text-center">
+        <h5 class="mb-0">Lista de Pagos</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" id="myTable">
+                <thead class="thead-dark">
+                    <tr class="text-center">
+                        <th>Fecha de Pago</th>
+                        <th>Método de Pago</th>
+                        <th>@Html.DisplayNameFor(model => model.Estado)</th>
+                        <th>Cliente</th>
+                        <th>Número de Pedido</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.FechaPago)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MetodoPago)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                            <td>@Html.DisplayFor(modelItem => item.IdClienteNavigation.Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.IdPedidoNavigation.Id)</td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group">
+                                    <a asp-action="Edit" class="btn btn-sm btn-outline-primary me-2" asp-route-id="@item.Id">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
+                                    <a asp-action="Details" class="btn btn-sm btn-outline-success me-2" asp-route-id="@item.Id">
+                                        <i class="fas fa-info-circle"></i> Detalles
+                                    </a>
+                                    <a asp-action="Delete" class="btn btn-sm btn-outline-danger" asp-route-id="@item.Id">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-<p>
-    <a asp-action="Create">Generar pago</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Fecha de Pago
-            </th>
-            <th>
-                Metodo de Pago
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
-                Cliente
-            </th>
-            <th>
-                Numero de pedido
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaPago)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MetodoPago)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdClienteNavigation.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdPedidoNavigation.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-            </td>
-        </tr>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "language": languageTable
+            });
+        });
+    </script>
 }
-    </tbody>
-</table>
+
+

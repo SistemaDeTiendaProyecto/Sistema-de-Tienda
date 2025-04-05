@@ -15,7 +15,7 @@ using System.Text;
 
 namespace Sistema_de_Tienda.Controllers
 {
-   [Authorize(Roles = "ADMINISTRADOR")]
+   [Authorize(Roles = "ADMINISTRADOR, GERENTE")]
     public class ClienteController : Controller
     {
         private readonly SistemaTiendaContext _context;
@@ -28,7 +28,22 @@ namespace Sistema_de_Tienda.Controllers
         // GET: Cliente
         public async Task<IActionResult> Index(Cliente cliente, int topRegistro = 10)
         {
+            // Obtener el rol del usuario autenticado
+            var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            // Filtrar los registros según el rol del usuario
             var query = _context.Clientes.AsQueryable();
+
+            if (userRole == "GERENTE")
+            {
+                query = query.Where(c => c.Role == "GERENTE" || c.Role == "CLIENTE");
+            }
+            else if (userRole == "CLIENTE")
+            {
+                query = query.Where(c => c.Role == "CLIENTE");
+            }
+
+            //filtros de busqueda
             if (!string.IsNullOrWhiteSpace(cliente.Nombre))
                 query = query.Where(s => s.Nombre.Contains(cliente.Nombre));
             if (!string.IsNullOrWhiteSpace(cliente.Correo))
@@ -37,13 +52,12 @@ namespace Sistema_de_Tienda.Controllers
                 query = query.Where(s => s.Dui.Contains(cliente.Dui));
             if (cliente.Id > 0)
                 query = query.Where(s => s.Id == cliente.Id);
-            if (cliente.Id > 0)
-                query = query.Where(s => s.Id == cliente.Id);
             if (topRegistro > 0)
                 query = query.Take(topRegistro);
 
             return View(await query.ToListAsync());
         }
+
 
         // GET: Cliente/Details/5
         public async Task<IActionResult> Details(int? id)

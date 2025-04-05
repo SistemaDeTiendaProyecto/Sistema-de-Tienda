@@ -1,773 +1,99 @@
 ﻿@model IEnumerable<Sistema_de_Tienda.Models.Tienda>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Tienda - Tabla Premium</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome para iconos -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts - Poppins -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/Poppins/2.0.0/poppins.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #4361ee;
-            --primary-light: #4895ef;
-            --secondary: #3ccf4e;
-            --info: #4cc9f0;
-            --warning: #f8961e;
-            --danger: #ef476f;
-            --dark: #212529;
-            --light: #f8f9fa;
-            --gray-light: #e9ecef;
-            --gray: #adb5bd;
-            --primary-color: #4361ee;
-            --secondary-color: #3a0ca3;
-            --accent-color: #7209b7;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-            --success-color: #4cc9f0;
-            --border-radius: 12px;
-            --box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --transition-speed: 0.3s;
-        }
-        }
 
-        body {
-            font-family: 'Poppins', 'Segoe UI', sans-serif;
-            color: #333;
-            padding: 0;
-            margin: 0;
-            min-height: 100vh;
-        }
-
-        .dashboard-container {
-            width: 120%;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            right:10%;
-        }
-
-        .dashboard-card {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #4361ee;
-        }
-
-            .dashboard-card::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 5px;
-                width: 100%;
-                background: linear-gradient(90deg, var(--primary), var(--info));
-            }
-
-        .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .page-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--dark);
-            margin: 0;
-            position: relative;
-            display: inline-block;
-        }
-
-            .page-title::after {
-                content: '';
-                position: absolute;
-                bottom: -8px;
-                left: 0;
-                width: 50px;
-                height: 3px;
-                background: var(--primary);
-                border-radius: 10px;
-            }
-
-        .btn-create-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 50px;
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
-        }
-
-        .btn-create {
-            background: linear-gradient(45deg, var(--primary), var(--primary-light));
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 2;
-        }
-
-            .btn-create::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: -100%;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(45deg, var(--info), var(--primary));
-                transition: all 0.4s ease;
-                z-index: -1;
-                border-radius: 50px;
-            }
-
-            .btn-create:hover {
-                transform: translateY(-3px);
-                color: white;
-            }
-
-                .btn-create:hover::before {
-                    left: 0;
-                }
-
-            .btn-create:active {
-                transform: translateY(0);
-            }
-
-        .table-container {
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-        }
-
-        .table {
-            margin-bottom: 0;
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-
-            .table thead {
-                background: linear-gradient(90deg, var(--primary) 0%, var(--info) 100%);
-            }
-
-                .table thead th {
-                    color: black;
-                    font-weight:600;
-                    text-transform: uppercase;
-                    font-size: 0.8rem;
-                    letter-spacing: 1px;
-                    padding: 1.2rem 1rem;
-                    border: none;
-                    position: relative;
-                }
-
-                    .table thead th:after {
-                        content: '';
-                        position: absolute;
-                        right: 0;
-                        top: 30%;
-                        height: 40%;
-                        width: 1px;
-                        background-color: rgba(255, 255, 255, 0.3);
-                    }
-
-                    .table thead th:last-child:after {
-                        display: none;
-                    }
-
-            .table tbody tr {
-                transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-                border-bottom: 1px solid var(--gray-light);
-            }
-
-                .table tbody tr:last-child {
-                    border-bottom: none;
-                }
-
-                .table tbody tr:hover {
-                    background-color: rgba(67, 97, 238, 0.04);
-                    transform: translateY(-2px);
-                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-                    z-index: 10;
-                    position: relative;
-                }
-
-            .table tbody td {
-                padding: 1.2rem 1rem;
-                vertical-align: middle;
-                color: #495057;
-                font-size: 0.95rem;
-                border-top: none;
-                position: relative;
-            }
-
-        .action-column {
-            text-align: right;
-            width: 240px;
-        }
-
-        .action-btn-group {
-            display: inline-flex;
-            gap: 8px;
-        }
-
-        .btn-action {
-            border-radius: 50px;
-            padding: 8px 16px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            border: none;
-        }
-
-        .btn-edit {
-            background-color: rgba(248, 150, 30, 0.1);
-            color: var(--warning);
-        }
-
-            .btn-edit:hover {
-                background-color: var(--warning);
-                color: white;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(248, 150, 30, 0.25);
-            }
-
-        .btn-details {
-            background-color: rgba(76, 201, 240, 0.1);
-            color: var(--info);
-        }
-
-            .btn-details:hover {
-                background-color: var(--info);
-                color: white;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(76, 201, 240, 0.25);
-            }
-
-        .btn-delete {
-            background-color: rgba(239, 71, 111, 0.1);
-            color: var(--danger);
-        }
-
-            .btn-delete:hover {
-                background-color: var(--danger);
-                color: white;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(239, 71, 111, 0.25);
-            }
-
-        .table-empty-state {
-            padding: 3rem;
-            text-align: center;
-            color: var(--gray);
-        }
-
-        .table-empty-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--gray-light);
-        }
-
-        .empty-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-
-        .table-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 1rem;
-            background-color: #f8f9fa;
-            font-size: 0.85rem;
-            color: var(--gray);
-            border-top: 1px solid var(--gray-light);
-        }
-
-        .status-badge {
-            padding: 5px 12px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        .status-active {
-            background-color: rgba(60, 207, 78, 0.1);
-            color: var(--secondary);
-        }
-
-        /* Animación para filas */
-  
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        
-
-        .animate-row {
-            animation: fadeInUp 0.5s ease forwards;
-        }
-
-        /* Estado "Sin datos" */
-        .no-data {
-            padding: 3rem;
-            text-align: center;
-        }
-
-            .no-data i {
-                font-size: 4rem;
-                color: #dee2e6;
-                margin-bottom: 1rem;
-            }
-
-        .no-data-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #495057;
-            margin-bottom: 0.5rem;
-        }
-
-        .no-data-text {
-            color: #6c757d;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer {
-            text-align: center;
-            color: var(--gray);
-            font-size: 0.85rem;
-            padding: 1.5rem 0;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-        }
-
-            .footer a {
-                color: var(--primary);
-                font-weight: 500;
-                text-decoration: none;
-                transition: color 0.3s;
-            }
-
-                .footer a:hover {
-                    color: var(--primary-light);
-                }
-
-        .btn-action {
-            padding: 6px 12px;
-        }
-
-        .dashboard-card {
-            padding: 1.5rem;
-        }
-
-        .action-btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .btn-action {
-            width: 100%;
-            justify-content: center;
-        }
-
-        .table-responsive {
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-		:root {
-			--bs-primary: #4361ee;
-			--bs-primary-rgb: 67, 97, 238;
-		}
-
-
-		.search-container {
-			background-color: white;
-			border-radius: var(--border-radius);
-			box-shadow: var(--box-shadow);
-			padding: 30px;
-			width: 100%;
-			max-width: 1500px;
-			transform: translateY(0);
-			transition: transform var(--transition-speed);
-            border: 1px solid #4361ee;
-		}
-
-			.search-container:hover {
-				transform: translateY(-5px);
-			}
-
-		.search-title {
-			color: var(--dark-color);
-			margin-bottom: 30px;
-			font-size: 32px;
-			font-weight: 700;
-			text-align: center;
-			position: relative;
-			padding-bottom: 15px;
-		}
-
-			.search-title::after {
-				content: '';
-				position: absolute;
-				bottom: 0;
-				left: 50%;
-				transform: translateX(-50%);
-				width: 100px;
-				height: 4px;
-				background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-				border-radius: 2px;
-			}
-
-		.search-form {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-			gap: 20px;
-		}
-
-		.form-group {
-			margin-bottom: 20px;
-			position: relative;
-		}
-
-			.form-group label {
-				display: block;
-				margin-bottom: 8px;
-				color: var(--dark-color);
-				font-weight: 600;
-				font-size: 14px;
-				transform: translateY(0);
-				transition: transform var(--transition-speed);
-			}
-
-			.form-group:hover label {
-				transform: translateY(-2px);
-				color: var(--primary-color);
-			}
-
-		.form-control {
-			width: 100%;
-			padding: 15px 20px;
-			border: 2px solid #e0e0e0;
-			border-radius: var(--border-radius);
-			background-color: #f8f9fa;
-			color: var(--dark-color);
-			font-size: 16px;
-			transition: all var(--transition-speed);
-			outline: none;
-		}
-
-			.form-control:focus {
-				border-color: var(--primary-color);
-				box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.25);
-				background-color: white;
-			}
-
-		.form-group i {
-			position: absolute;
-			top: 42px;
-			left: 15px;
-			color: #adb5bd;
-			transition: color var(--transition-speed);
-		}
-
-		.form-group:hover i {
-			color: var(--primary-color);
-		}
-
-		.form-control-with-icon {
-			padding-left: 45px;
-		}
-
-		.search-button {
-			background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-			color: white;
-			border: none;
-			border-radius: var(--border-radius);
-			padding: 15px 30px;
-			font-size: 18px;
-			font-weight: 600;
-			cursor: pointer;
-			transition: all var(--transition-speed);
-			text-transform: uppercase;
-			letter-spacing: 1px;
-			box-shadow: 0 4px 6px rgba(67, 97, 238, 0.3);
-			position: relative;
-			overflow: hidden;
-			width: 100%;
-			top: 25%;
-		}
-
-			.search-button:hover {
-				transform: translateY(-2px);
-				box-shadow: 0 7px 14px rgba(67, 97, 238, 0.4);
-			}
-
-			.search-button:active {
-				transform: translateY(1px);
-			}
-
-			.search-button::after {
-				content: "";
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				background-color: rgba(255, 255, 255, 0.2);
-				transform: translateX(-100%);
-				transition: transform 0.6s;
-			}
-
-			.search-button:hover::after {
-				transform: translateX(100%);
-			}
-
-		.select-wrapper {
-			position: relative;
-		}
-
-			.select-wrapper::after {
-				content: '▼';
-				position: absolute;
-				top: 50%;
-				right: 15px;
-				transform: translateY(-50%);
-				color: #adb5bd;
-				pointer-events: none;
-				font-size: 12px;
-				transition: color var(--transition-speed);
-			}
-
-			.select-wrapper:hover::after {
-				color: var(--primary-color);
-			}
-
-		.search-title {
-			font-size: 24px;
-		}
-
-		}
-
-		.fade-in-element {
-			animation: fadeIn 0.8s ease-out forwards;
-		}
-
-		.delay-1 {
-			animation-delay: 0.1s;
-		}
-
-		.delay-2 {
-			animation-delay: 0.2s;
-		}
-
-		.delay-3 {
-			animation-delay: 0.3s;
-		}
-
-		.delay-4 {
-			animation-delay: 0.4s;
-		}
-
-		.delay-5 {
-			animation-delay: 0.5s;
-		}
-	</style>
-</head>
-<body>
-
-
-    <div class="search-container">
-        <h1 class="search-title fade-in-element">Buscar Tienda</h1>
-
-        <form class="search-form" action="" method="get" id="search-form">
-            <div class="form-group fade-in-element delay-1">
-                <label for="nombre" class="control-label">Nombre</label>
-                <i class="fas fa-user"></i>
-                <input type="text" name="nombre" id="nombre" class="form-control form-control-with-icon" placeholder="Ingrese nombre del producto">
+<!-- estructura de la tabla -->
+<h1>tiendas</h1>
+<div class="card shadow-lg p-4">
+    <form asp-action="Index">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    <label class="control-label">Nombre</label>
+                    <input type="text" name="Nombre" class="form-control" />
+                </div>
             </div>
 
-            <div class="form-group fade-in-element delay-2">
-                <label for="email" class="control-label">Email</label>
-                <i class="fas fa-envelope"></i>
-                <input type="email" name="email" id="email" class="form-control form-control-with-icon" placeholder="Ingrese email">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    <label class="control-label">Email</label>
+                    <input type="text" name="email" class="form-control" />
+                </div>
             </div>
 
-            <div class="form-group fade-in-element delay-3">
-                <label for="direccion" class="control-label">Dirección</label>
-                <i class="fas fa-map-marker-alt"></i>
-                <input type="text" name="direccion" id="direccion" class="form-control form-control-with-icon" placeholder="Ingrese dirección">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    <label class="control-label">Direccion</label>
+                    <input type="text" name="direccion" class="form-control" />
+                </div>
             </div>
-
-            <div class="form-group fade-in-element delay-4">
-                <label for="registros" class="control-label">Cant. Registros</label>
-                <div class="select-wrapper">
-                    <select name="registros" id="registros" class="form-control">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                        <option value="1000">1000</option>
+            
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    <label class="control-label">Cant. Clientes</label>
+                    <select name="topRegistro" class="form-control">
+                        <option selected value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="60">60</option>
                         <option value="0">Todos</option>
                     </select>
                 </div>
             </div>
-
-            <div class="button-container fade-in-element delay-5">
-                <button type="submit" class="search-button">
-                    <i class="fas fa-search"></i> Buscar
-                </button>
-            </div>
-        </form>
-    </div>
-
-
-      
-
-    <!--fin-->
-
-
-    <div class="dashboard-container">
-        <div class="dashboard-card">
-            <div class="page-header">
-                <h1 class="page-title">Gestión de Tiendas</h1>
-                <div class="btn-create-container">
-                    <a asp-action="Create" class="btn btn-create">
-                        <i class="fas fa-plus-circle"></i> Crear Nueva Tienda
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-responsive table-container">
-                <table class="table" id="myTable">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Dirección</th>
-                            <th class="action-column">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Esta sección mantiene la estructura ASP.NET original -->
-                        @foreach (var item in Model)
-                        {
-                            <tr class="animate-row">
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="status-indicator me-2 status-active"></div>
-                                        <strong>@Html.DisplayFor(modelItem => item.Nombre)</strong>
-                                    </div>
-                                </td>
-                                <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
-                                <td class="action-column">
-                                    <div class="action-btn-group">
-                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-action btn-edit">
-                                            <i class="fas fa-edit"></i> Editar
-                                        </a>
-                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-action btn-details">
-                                            <i class="fas fa-info-circle"></i> Detalles
-                                        </a>
-                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-action btn-delete">
-                                            <i class="fas fa-trash-alt"></i> Eliminar
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-
-                        <!-- Si no hay datos, mostrar este estado -->
-                        
-                    </tbody>
-                </table>
-
-                <!-- Pie de la tabla con información adicional -->
-                <div class="table-footer">
-                    <div>
-                        Mostrando <span class="fw-bold">@Model.Count()</span> tiendas
-                    </div>
-                    <div>
-                        Última actualización: <span class="fw-bold">@DateTime.Now.ToString("dd/MM/yyyy HH:mm")</span>
-                    </div>
-                </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 text-center">
+                <input type="submit" value="Buscar" class="btn btn-primary mr-2" />
+                <a class="btn btn-info" asp-action="Create">Ir a crear</a>
             </div>
         </div>
+    </form>
+</div>
 
-       
+<div class="card shadow-lg">
+    <div class="card-header bg-primary text-white text-center">
+        <h5 class="mb-0">Lista de tiendas</h5>
     </div>
-
-    <!-- Bootstrap Bundle con Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" id="myTable">
+                <thead class="thead-dark">
+                    <tr class="text-center">
+                        <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                        <th>@Html.DisplayNameFor(model => model.Email)</th>
+                         <th>@Html.DisplayNameFor(model => model.Direccion)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-left">@Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td class="text-center">@Html.DisplayFor(modelItem => item.Email)</td>
+                             <td class="text-center">@Html.DisplayFor(modelItem => item.Direccion)</td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group">
+                                    <a asp-action="Edit" class="btn btn-sm btn-outline-primary me-2" asp-route-id="@item.Id">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
+                                    <a asp-action="Details" class="btn btn-sm btn-outline-success me-2" asp-route-id="@item.Id">
+                                        <i class="fas fa-info-circle"></i> Detalle
+                                    </a>
+                                    <a asp-action="Delete" class="btn btn-sm btn-outline-danger" asp-route-id="@item.Id">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts {
     <script>
-        // Añadir retraso a la animación de las filas para un efecto en cascada
-        document.addEventListener('DOMContentLoaded', function() {
-            const rows = document.querySelectorAll('.animate-row');
-            rows.forEach((row, index) => {
-                row.style.animationDelay = `${index * 0.1}s`;
-            });
-        });
+        $('#myTable').DataTable({
 
-        // Agregar clases para animación al cargar la página
-        document.addEventListener('DOMContentLoaded', function() {
-            // La animación ya está configurada en el CSS con las clases delay
-        });
-
-        // Efecto de onda en el botón de búsqueda
-        const button = document.querySelector('.search-button');
-        button.addEventListener('mousedown', function(e) {
-            const x = e.clientX - e.target.getBoundingClientRect().left;
-            const y = e.clientY - e.target.getBoundingClientRect().top;
-
-            const ripple = document.createElement('span');
-            ripple.classList.add('ripple');
-            ripple.style.left = `${x}px`;
-            ripple.style.top = `${y}px`;
-
-            this.appendChild(ripple);
-
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
+         });
     </script>
-    @section Scripts {
-        <script>
-            $('#myTable').DataTable({
-
-             });
-        </script>
-    }
-</body>
-</html>
+}

@@ -21,10 +21,29 @@ namespace Sistema_de_Tienda.Controllers
         }
 
         // GET: Pagos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string MetodoPago, string Estado, string Cliente)
         {
-            var sistemaTiendaContext = _context.Pagos.Include(p => p.IdClienteNavigation).Include(p => p.IdPedidoNavigation);
-            return View(await sistemaTiendaContext.ToListAsync());
+            var query = _context.Pagos.Include(p => p.IdClienteNavigation).Include(p => p.IdPedidoNavigation).AsQueryable();
+
+            // Filtrar por Método de Pago
+            if (!string.IsNullOrWhiteSpace(MetodoPago))
+            {
+                query = query.Where(p => p.MetodoPago.Contains(MetodoPago));
+            }
+
+            // Filtrar por Estado
+            if (!string.IsNullOrWhiteSpace(Estado))
+            {
+                query = query.Where(p => p.Estado.Contains(Estado));
+            }
+
+            // Filtrar por Cliente
+            if (!string.IsNullOrWhiteSpace(Cliente))
+            {
+                query = query.Where(p => p.IdClienteNavigation.Nombre.Contains(Cliente));
+            }
+
+            return View(await query.ToListAsync());
         }
 
         // GET: Pagos/Details/5
@@ -51,7 +70,7 @@ namespace Sistema_de_Tienda.Controllers
         public IActionResult Create()
         {
             ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Nombre");
-            ViewData["IdPedido"] = new SelectList(_context.Pedidos, "Id", "Id");
+            ViewBag.IdCliente = new SelectList(_context.Clientes.Where(c => c.Role == "CLIENTE"), "Id", "Nombre");
             return View();
         }
 
@@ -68,7 +87,7 @@ namespace Sistema_de_Tienda.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Nombre", pago.IdCliente);
+            ViewBag.IdCliente = new SelectList(_context.Clientes.Where(c => c.Role == "CLIENTE"), "Id", "Nombre", pago.IdCliente);
             ViewData["IdPedido"] = new SelectList(_context.Pedidos, "Id", "Id", pago.IdPedido);
             return View(pago);
         }
