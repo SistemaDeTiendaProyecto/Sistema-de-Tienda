@@ -63,7 +63,7 @@ namespace Sistema_de_Tienda.Controllers
                 query = query.Where(p => p.IdTiendaNavigation.Nombre.Contains(Tienda));
             }
 
-            return View(await query.ToListAsync());
+            return View(await query.Where(p => p.Activo == 1).ToListAsync());
         }
 
 
@@ -235,7 +235,8 @@ namespace Sistema_de_Tienda.Controllers
             var producto = await _context.Productos.FindAsync(id);
             if (producto != null)
             {
-                _context.Productos.Remove(producto);
+                producto.Activo = 0;
+                _context.Update(producto);
             }
 
             await _context.SaveChangesAsync();
