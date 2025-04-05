@@ -31,35 +31,30 @@
                     <!-- Aquí irá la imagen y el input file -->
                     <p class="text-muted text-center">Área para imagen</p>
 
-                     <div class="text-center">
-                        <img style="width:30%; height:100px;" id="imagePreview" src="" alt="vista previa">
+                       @if (Model.Image != null && Model.Image.Length > 0)
+                                {
+                                    string base64Image = Convert.ToBase64String(Model.Image);
+                                        string imageUrl = $"data:image/png;base64,{base64Image}";
 
-                     </div>
+                                        <div class="text-center">
+                                            <img src="@imageUrl" style="width:30%; height:100px;" id="imagePreview" src="" alt="vista previa">
+
+                                        </div>
+                                }
+                                else
+                                {
+                                    <div class="text-center">
+                                            <img src="#" style="width:30%; height:100px;" id="imagePreview" src="" alt="vista previa">
+                                    </div>
+                                }
+
+                     
 
                       <div class="text-center mt-3">
 
-                             <label for="imageFile" class="btn btn-outline-secondary">
+                        <label for="image" class="btn btn-outline-secondary">
                                  <i class="fas fa-upload me-2"></i> Subir imagen
-                             </label>
-
-                            @if (Model.ImagenBytes != null && Model.ImagenBytes.Length > 0)
-                                {
-                                    string base64Image = Convert.ToBase64String(Model.ImagenBytes);
-                                        string imageUrl = $"data:image/png;base64,{base64Image}";
-                                                
-                                    <input asp-for="Image" src="@imageUrl" type="file" id="imageFile" name="file"  class="form-control" style="display: none; />
-                                    <p id="file-name" class="mt-2"></p>
-                     </div>
-
-              
-               
-            }
-            else
-            {
-                <div id="preview" style="display: none;">
-                    <img id="imagePreview" src="#" alt="Vista previa de la imagen" style="max-width: 200px; max-height: 200px;">
-                </div>
-            }
+                        </label>
 
                 </div>
             </div>
