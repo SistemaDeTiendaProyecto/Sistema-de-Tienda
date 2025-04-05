@@ -38,6 +38,15 @@ namespace Sistema_de_Tienda.Controllers
             return bytes;
         }
 
+        // GET: Productos/Catalogo
+        public async Task<IActionResult> Catalogo()
+        {
+            var productos = await _context.Productos
+                .Include(p => p.IdCategoriaNavigation)
+                .Include(p => p.IdTiendaNavigation)
+                .ToListAsync();
+            return View(productos);
+        }
 
 
         // GET: Productos
