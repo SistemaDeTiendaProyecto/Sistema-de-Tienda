@@ -1,0 +1,9 @@
+@model List<Sistema_de_Tienda.Models.DetallesPedido>
+
+@{
+    Func<int, string, string> getName = (int index, string prop) =>
+    {
+        return String.Format("DetallesPedido[{0}].{1}", index, prop);
+    };
+}
+

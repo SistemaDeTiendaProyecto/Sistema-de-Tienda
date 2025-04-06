@@ -13,20 +13,29 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 50%;
+    overflow-x: hidden;
 }
 
 
-
+.main-container {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    right: 10%;
+    position: relative;
+    width: 120%;
+    top: -15px;
+   
+}
 
 .sidebar {
-    background-color: #fff;
-            border-right: 1px solid #eaecef;
-            padding: 20px;
-            height: 900px;
-            position: relative;
-            right: 10%;
-            top: -15px;
-            
+    
+    padding: 20px;
+    width: 5%;
+    position: relative;
+    top: 0;
+    overflow-y: auto;
     
 }
 
@@ -36,8 +45,7 @@ body {
     color: var(--primary-color);
     letter-spacing: 0.5px;
     position: relative;
-    right: 3%;
-    margin-top: -81%;
+    left: 5%;
 }
 
 .custom-search-input {
@@ -48,7 +56,7 @@ body {
     transition: all 0.3s;
     position: relative;
     max-width: 16%;
-    right: 8%;
+    left: 1%;
 
 
 }
@@ -67,7 +75,7 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
-    right: 8%;
+    left: 1%;
     
 }
 
@@ -183,7 +191,7 @@ body {
     position: relative;
     overflow: hidden;
     width: 80%;
-    left: 55%;
+    left: 58%;
     top: -130%;
 }
 
@@ -303,5 +311,15 @@ body {
     color: var(--primary-color);
     position: relative;
     top: -200%;
+}
+
+@media (max-width: 991.98px) {
+    .sidebar {
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid #eaecef;
+    }
+    
 }
 
