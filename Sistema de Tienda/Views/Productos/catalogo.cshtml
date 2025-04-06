@@ -1,4 +1,4 @@
-@model IEnumerable<Sistema_de_Tienda.Models.Producto>
+@* @model IEnumerable<Sistema_de_Tienda.Models.Producto>
 
 @{
     ViewData["Title"] = "Index";
@@ -8,11 +8,11 @@
     // Extrae las categorías únicas de la lista de productos
     var categoriasUnicas = Model.Select(p => p.IdCategoriaNavigation).Distinct().ToList();
 }
+ *@
 
 
 
-
-<!DOCTYPE html>
+@* <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -269,4 +269,4 @@
 
 
 </body>
-</html>
+</html> *@
