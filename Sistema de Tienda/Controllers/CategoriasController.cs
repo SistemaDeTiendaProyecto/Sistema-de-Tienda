@@ -21,9 +21,23 @@ namespace Sistema_de_Tienda.Controllers
         }
 
         // GET: Categorias
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Nombre, string Descripcion)
         {
-            return View(await _context.Categorias.ToListAsync());
+            var query = _context.Categorias.AsQueryable();
+
+            // Filtrar por Nombre
+            if (!string.IsNullOrWhiteSpace(Nombre))
+            {
+                query = query.Where(c => c.Nombre.Contains(Nombre));
+            }
+
+            // Filtrar por Descripcion
+            if (!string.IsNullOrWhiteSpace(Descripcion))
+            {
+                query = query.Where(c => c.Descripcion.Contains(Descripcion));
+            }
+
+            return View(await query.ToListAsync());
         }
 
         // GET: Categorias/Details/5

@@ -156,8 +156,8 @@ namespace Sistema_de_Tienda.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "Id", "Id", producto.IdCategoria);
-            ViewData["IdTienda"] = new SelectList(_context.Tiendas, "Id", "Id", producto.IdTienda);
+            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "Id", "Nombre", producto.IdCategoria);
+            ViewData["IdTienda"] = new SelectList(_context.Tiendas, "Id", "Nombre", producto.IdTienda);
             return View(producto);
         }
 

@@ -1,10 +1,10 @@
 ﻿@model Sistema_de_Tienda.Models.Producto
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Producto";
 }
 
-<h1>Edit</h1>
+<h1>Producto</h1>
 
 
 
@@ -77,12 +77,12 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
           
                     <div class="form-group mt-2">
-                        <label asp-for="IdCategoria" class="control-label"></label>
+                        <label asp-for="IdCategoria" class="control-label">Categoria</label>
                         <select asp-for="IdCategoria" class ="form-control" asp-items="ViewBag.IdCategoria"></select>
                     </div>
 
                     <div class="form-group mt-2 ">
-                        <label asp-for="IdTienda" class="control-label"></label>
+                        <label asp-for="IdTienda" class="control-label">Tienda</label>
                         <select asp-for="IdTienda" class ="form-control" asp-items="ViewBag.IdTienda"></select>
                     </div>
 
@@ -103,7 +103,7 @@
                 <div class="bg-light  mb-1">
          
                     <div class="form-group ">
-                        <label asp-for="Descripcion" class="control-label"></label>
+                        <label asp-for="Descripcion" class="control-label">Descripción</label>
                         <input asp-for="Descripcion" class="form-control" />
                         <span asp-validation-for="Descripcion" class="text-danger"></span>
                     </div>
@@ -136,23 +136,13 @@
             </div>
 
             <div clas="row ">
-                <div class="form-group">
+                <div class="form-group mt-4">
                 <input type="submit" value="Guardar" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-danger">Regresar a la lista</a>
+            </div>
             </div>
 
     </form>
-
-
-
-            </div>
-
-
-        </div>
-    </div> 
-
-
-
-
 
 <script>
     document.getElementById('imageFile').addEventListener('change', function (event) {
@@ -177,11 +167,6 @@
 
 
 </script>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

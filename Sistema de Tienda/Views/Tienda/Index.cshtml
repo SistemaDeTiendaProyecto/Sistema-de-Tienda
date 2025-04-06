@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<Sistema_de_Tienda.Models.Tienda>
 
+@{
+    ViewData["Title"] = "Tiendas";
+}
 
 <!-- estructura de la tabla -->
 <h1>tiendas</h1>
@@ -92,8 +95,10 @@
 </div>
 @section Scripts {
     <script>
-        $('#myTable').DataTable({
-
-         });
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "language": languageTable
+            });
+        });
     </script>
 }

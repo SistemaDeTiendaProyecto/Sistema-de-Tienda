@@ -1,14 +1,15 @@
 ﻿@model Sistema_de_Tienda.Models.Categoria
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles de Categoria";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Categoria</h4>
-    <hr />
+<h1 class="text-center">Detalles de Categoria</h1>
+<div class="card shadow-lg p-4 mb-4 bg-white rounded">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Información de Categoria</h4>
+    </div>
+    <div class="card-body">
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Nombre)
@@ -25,6 +26,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-sm btn-outline-success me-2">Editar</a>
+        <a asp-action="Index" class="btn btn-sm btn-outline-danger me-2">Volver a la lista</a>
+</div>
 </div>

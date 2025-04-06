@@ -55,16 +55,16 @@
                                 <i class="fas fa-store"></i> Tienda
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Productos" asp-action="Catalogo">
                                 <i class="fas fa-store"></i> Catalogo
                             </a>
-                        </li>
-                        <li class="nav-item">
+                        </li>-->
+                       <!--<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Pedido" asp-action="Index">
                                 <i class="fas fa-store"></i> Pedidos
                             </a>
-                        </li>
+                         </li>-->
                         @if (User.IsInRole("ADMINISTRADOR") || User.IsInRole("GERENTE"))
                         {
                         <li class="nav-item">
@@ -77,11 +77,11 @@
                                 <i class="fas fa-tags"></i> Categorías
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Pagos" asp-action="Index">
                                 <i class="fas fa-credit-card"></i> Pago
                             </a>
-                        </li>
+                        </li>-->
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Index">
                                     <i class="fas fa-users"></i> Clientes

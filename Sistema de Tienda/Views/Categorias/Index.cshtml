@@ -82,8 +82,10 @@
 </div>
 @section Scripts {
     <script>
-        $('#myTable').DataTable({
-
-         });
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "language": languageTable
+            });
+        });
     </script>
 }

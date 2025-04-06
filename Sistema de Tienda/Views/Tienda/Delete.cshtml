@@ -1,5 +1,8 @@
 ﻿@model Sistema_de_Tienda.Models.Tienda
 
+@{
+    ViewData["Title"] = "Eliminar Tienda";
+}
 <!-- diseño de la pagina -->
 
 <style>
@@ -140,11 +143,11 @@
                 <div class="actions">
                     <form asp-action="Delete">
                         <input type="hidden" asp-for="Id" />
-                        <input type="submit" value="Delete" class="btn btn-danger" 
+                        <input type="submit" value="Eliminar" class="btn btn-danger" 
                                onclick="return confirm('¿Está seguro que desea eliminar esta tienda? Esta acción no se puede deshacer.');" />
                     </form>
                     <a asp-action="Index" class="back-link">
-                        <i class="fas fa-arrow-left"></i> Back to List
+                    <i class="fas fa-arrow-left"></i> Volver al Listado
                     </a>
                 </div>
             </div>
