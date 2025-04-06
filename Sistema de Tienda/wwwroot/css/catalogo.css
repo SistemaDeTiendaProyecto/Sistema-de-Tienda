@@ -157,7 +157,7 @@ body {
 }
 .posicion{
     position: relative;
-    left: 20%;
+    left: 15%;
     margin-top: -110%;
    
 }
@@ -260,12 +260,7 @@ body {
     border-radius: 50px;
 }
 
-.product-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
-}
+
 
 .add-to-cart-btn {
     background-color: var(--primary-color);
