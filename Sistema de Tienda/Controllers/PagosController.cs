@@ -45,7 +45,10 @@ namespace Sistema_de_Tienda.Controllers
 
             return View(await query.ToListAsync());
         }
-
+        public async Task<IActionResult> MetodoPago()
+        {
+            return View();
+        }
         // GET: Pagos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
