@@ -6,59 +6,177 @@
 
 <h1>Edit</h1>
 
-<h4>Producto</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="IdCategoria" class="control-label"></label>
-                <select asp-for="IdCategoria" class="form-control" asp-items="ViewBag.IdCategoria"></select>
-                <span asp-validation-for="IdCategoria" class="text-danger"></span>
+
+
+<style>
+    .container{
+        position: relative;
+        top: 5%;
+        left: 5%;
+    }
+</style>
+
+ <form asp-action="Edit" enctype="multipart/form-data">
+
+   <input type="hidden" asp-for="Id" />
+
+    <div class="container m-50 mt-10 mh-300">
+    <p class="text-muted text-left">Editar</p>
+        <!-- Fila superior: columna izquierda para imagen, columna derecha para los tres inputs -->
+        <div class="row mb-1">
+            <!-- Columna izquierda (ocupa 6 de 12 columnas) -->
+
+           
+            <div class="col-md-4 mt-">
+                <div class="bg-light  h-100 ">
+                    <!-- Aquí irá la imagen y el input file -->
+                    <p class="text-muted text-center">Área para imagen</p>
+
+                     <div class="text-center">
+
+                        
+                        @if (Model.Image != null && Model.Image.Length > 0)
+                                {
+                                    string base64Image = Convert.ToBase64String(Model.Image);
+                                        string imageUrl = $"data:image/png;base64,{base64Image}";
+
+                                        
+                                            <img src="@imageUrl" style="width:30%; height:100px;" id="imagePreview" src="" alt="vista previa">
+
+                                        
+                                }
+                                else
+                                {
+                                    
+                                            <img src="#" style="width:30%; height:100px;" id="imagePreview" src="" alt="vista previa">
+                                   
+                                }
+                     </div>
+
+                      <div class="text-center mt-3">
+
+                             <label for="imageFile" class="btn btn-outline-secondary">
+                                 <i class="fas fa-upload me-2"></i> Subir imagen
+                             </label>
+                            
+                              <input asp-for="Image" type="file" id="imageFile" name="file"  class="form-control" style="display: none; />
+                             <p id="file-name" class="mt-2"></p>
+                     </div>
+                     
+
+                     
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="IdTienda" class="control-label"></label>
-                <select asp-for="IdTienda" class="form-control" asp-items="ViewBag.IdTienda"></select>
-                <span asp-validation-for="IdTienda" class="text-danger"></span>
+            
+            <!-- Columna derecha (ocupa 6 de 12 columnas) -->
+            <div class="col-md-4">
+                <div class="bg-white  h-100 ">
+                    <!-- Aquí irán los tres inputs -->
+                     
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+          
+                    <div class="form-group mt-2">
+                        <label asp-for="IdCategoria" class="control-label"></label>
+                        <select asp-for="IdCategoria" class ="form-control" asp-items="ViewBag.IdCategoria"></select>
+                    </div>
+
+                    <div class="form-group mt-2 ">
+                        <label asp-for="IdTienda" class="control-label"></label>
+                        <select asp-for="IdTienda" class ="form-control" asp-items="ViewBag.IdTienda"></select>
+                    </div>
+
+                    <div class="form-group mt-2">
+                        <label asp-for="Nombre" class="control-label"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+        
+        <!-- Fila inferior: dos columnas para los inputs que abarcan todo el ancho -->
+        <div class="row">
+            <!-- Primera columna inferior (ocupa 6 de 12 columnas) -->
+            <div class="col-md-4" mt-2>
+                <div class="bg-light  mb-1">
+         
+                    <div class="form-group ">
+                        <label asp-for="Descripcion" class="control-label"></label>
+                        <input asp-for="Descripcion" class="form-control" />
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
+            
+            <!-- Segunda columna inferior (ocupa 6 de 12 columnas) -->
+            <div class="col-md-2">
+                <div class="bg-white  mb-1">
+                    <!-- Aquí irá el segundo input ancho -->
+                   
+                    <div class="form-group">
+                        <label asp-for="Precio" class="control-label"></label>
+                        <input asp-for="Precio" type="number"  class="form-control" />
+                        <span asp-validation-for="Precio" class="text-danger"></span>
+                    </div>
+
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
+             <div class="col-md-2 ">
+                <div class="bg-white  mb-1">
+                    <!-- Aquí irá el tercero input ancho -->
+                    
+                    <div class="form-group">
+                        <label asp-for="Stock" class="control-label"></label>
+                        <input asp-for="Stock" type="number" class="form-control" />
+                        <span asp-validation-for="Stock" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
-                <span asp-validation-for="Precio" class="text-danger"></span>
+
+            <div clas="row ">
+                <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
-            <div class="form-group">
-                <label asp-for="Stock" class="control-label"></label>
-                <input asp-for="Stock" class="form-control" />
-                <span asp-validation-for="Stock" class="text-danger"></span>
+
+    </form>
+
+
+
             </div>
-            <div class="form-group">
-                <label asp-for="Activo" class="control-label"></label>
-                <input asp-for="Activo" class="form-control" />
-                <span asp-validation-for="Activo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+
+
+        </div>
+    </div> 
+
+
+
+
+
+<script>
+    document.getElementById('imageFile').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        @* const preview = document.getElementById('preview'); *@
+        const imagePreview = document.getElementById('imagePreview');
+
+        if (file) {
+            const fileReader = new FileReader();
+
+            fileReader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                @* preview.style.display = 'block'; *@
+            };
+
+            fileReader.readAsDataURL(file);
+        } else {
+            imagenPrevia.src = '#';
+            @* preview.style.display = 'none'; *@
+        }
+    });
+
+
+</script>
 
 <div>
     <a asp-action="Index">Back to List</a>

@@ -11,7 +11,7 @@ using Sistema_de_Tienda.Models;
 
 namespace Sistema_de_Tienda.Controllers
 {
-    [Authorize(Roles = "ADMINISTRADOR, GERENTE")]
+    
 
 
     public class ProductosController : Controller
@@ -38,6 +38,15 @@ namespace Sistema_de_Tienda.Controllers
             return bytes;
         }
 
+        // GET: Productos/Catalogo
+        public async Task<IActionResult> Catalogo()
+        {
+            var productos = await _context.Productos
+                .Include(p => p.IdCategoriaNavigation)
+                .Include(p => p.IdTiendaNavigation)
+                .ToListAsync();
+            return View(productos);
+        }
 
 
         // GET: Productos
@@ -63,7 +72,7 @@ namespace Sistema_de_Tienda.Controllers
                 query = query.Where(p => p.IdTiendaNavigation.Nombre.Contains(Tienda));
             }
 
-            return View(await query.ToListAsync());
+            return View(await query.Where(p => p.Activo == 1).ToListAsync());
         }
 
 
@@ -157,17 +166,33 @@ namespace Sistema_de_Tienda.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IdCategoria,IdTienda,Nombre,Image,Descripcion,Precio,Stock,Activo")] Producto producto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IdCategoria,IdTienda,Nombre,Image,Descripcion,Precio,Stock,Activo")] Producto producto, IFormFile? file = null)
         {
+
+                Console.WriteLine($"ID: {producto.Id}");
+                Console.WriteLine($"IdCategoria: {producto.IdCategoria}");
+                Console.WriteLine($"IdTienda: {producto.IdTienda}");
+                Console.WriteLine($"Nombre: {producto.Nombre}");
+                Console.WriteLine($"Imagen: {producto.Image}");
+                Console.WriteLine($"Descripcion: {producto.Descripcion}");
+                Console.WriteLine($"Precio: {producto.Precio}");
+                Console.WriteLine($"Stock: {producto.Stock}");
+                Console.WriteLine($"Activo: {producto.Activo}");
+
+
             if (id != producto.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+        
                 try
                 {
+                    var byteImagesAnterior = await _context.Productos
+                        .Where(s => s.Id == producto.Id)
+                        .Select(s => s.Image).FirstOrDefaultAsync();
+
+                    producto.Image = await GenerarByteImage(file, byteImagesAnterior);
                     _context.Update(producto);
                     await _context.SaveChangesAsync();
                 }
@@ -182,11 +207,13 @@ namespace Sistema_de_Tienda.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdCategoria"] = new SelectList(_context.Categorias, "Id", "Id", producto.IdCategoria);
-            ViewData["IdTienda"] = new SelectList(_context.Tiendas, "Id", "Id", producto.IdTienda);
-            return View(producto);
+
+            return RedirectToAction(nameof(Index));
+                
+            
+            // ViewData["IdCategoria"] = new SelectList(_context.Categorias, "Id", "Id", producto.IdCategoria);
+            // ViewData["IdTienda"] = new SelectList(_context.Tiendas, "Id", "Id", producto.IdTienda);
+            // return View(producto);
         }
 
         // GET: Productos/Delete/5
@@ -217,7 +244,8 @@ namespace Sistema_de_Tienda.Controllers
             var producto = await _context.Productos.FindAsync(id);
             if (producto != null)
             {
-                _context.Productos.Remove(producto);
+                producto.Activo = 0;
+                _context.Update(producto);
             }
 
             await _context.SaveChangesAsync();

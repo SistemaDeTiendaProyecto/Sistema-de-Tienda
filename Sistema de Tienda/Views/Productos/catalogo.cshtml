@@ -1,0 +1,272 @@
+@model IEnumerable<Sistema_de_Tienda.Models.Producto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@{
+    // Extrae las categorías únicas de la lista de productos
+    var categoriasUnicas = Model.Select(p => p.IdCategoriaNavigation).Distinct().ToList();
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Tienda Online</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link href="/css/catalogo.css" rel="stylesheet" />
+</head>
+<body>
+
+
+    <div class="main-container">
+        <div class="row g-0">
+            <!-- Sidebar with categories -->
+            
+             <div class="col-lg-2 sidebar"></div>
+                <h4 class="logo-text mb-4">Catalogo</h4>
+                
+                <div class="input-group mb-1">
+                    <input type="text" class="form-control custom-search-input" placeholder="Buscar productos...">
+                    <span class="input-group-text search-icon">
+                        <i class="fas fa-search"></i>
+                    </span>
+
+        
+
+        <div class="main-container">
+            <div class="row g-0">
+                <!-- Sidebar with categories -->
+                <div class="col-lg-3 sidebar">
+                    <h4 class="logo-text mb-4">Catalogo</h4>
+                    
+                    <div class="input-group mb-4">
+                        <input type="text" class="form-control custom-search-input" placeholder="Buscar productos...">
+                        <span class="input-group-text search-icon">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    
+                    <h5 class="category-title">Categorias</h5>
+                    
+                    <ul class="category-list">
+
+                  
+                    @foreach (var categoria in categoriasUnicas)
+                    {
+                            <li class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <i class="fas fa-pump-soap category-icon"></i>
+                                    <span>@categoria.Nombre</span> 
+                                </div>
+                                <span class="category-number">06</span> 
+                            </li>
+    
+                    }
+                      
+                    </ul>
+
+                </div>
+                
+                <h5 class="category-title">Categorias</h5>
+                
+                <ul class="category-list">
+                    <li class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-pump-soap category-icon"></i>
+                            <span>Cuidado personal</span>
+                        </div>
+                        <span class="category-number">06</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-box category-icon"></i>
+                            <span>Plasticos</span>
+                        </div>
+                        <span class="category-number">07</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-cookie category-icon"></i>
+                            <span>Churros</span>
+                        </div>
+                        <span class="category-number">08</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-wine-bottle category-icon"></i>
+                            <span>Gaseosas</span>
+                        </div>
+                        <span class="category-number">05</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-cut category-icon"></i>
+                            <span>Cabello</span>
+                        </div>
+                        <span class="category-number">03</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-pepper-hot category-icon"></i>
+                            <span>Condimentos</span>
+                        </div>
+                        <span class="category-number">09</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-home category-icon"></i>
+                            <span>Para el hogar</span>
+                        </div>
+                        <span class="category-number">11</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center active">
+                        <div>
+                            <i class="fas fa-shower category-icon"></i>
+                            <span>Baño</span>
+                        </div>
+                        <span class="category-number">07</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Main content area -->
+            <div class="col-lg-10 main-content" >
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="welcome-text">Bienvenido/a a categorias</h4>
+                    
+                    <div class="posicion">
+                        <button class="nav-icon me-2" data-bs-toggle="tooltip" title="Ubicación">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </button>
+                        <button class="nav-icon me-2" data-bs-toggle="tooltip" title="Mi cuenta">
+                            <i class="fas fa-user"></i>
+                        </button>
+                        <button class="nav-icon" data-bs-toggle="tooltip" title="Carrito">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>     
+                    
+                    <!-- Section title -->
+                  
+                    
+                    <!-- Products grid -->
+                    <div class="row">
+
+
+                    @foreach (var item in Model)
+                    {
+                         <div class="col-md-6 col-xl-6 mb-4">
+                            <div class="product-card">
+                                <span class="badge-new">Destacado</span>
+                                <div class="product-image-container">
+
+                                     @if (item.Image != null && item.Image.Length > 0)
+                                {
+                                    string base64Image = Convert.ToBase64String(item.Image);
+                                    string imageUrl = $"data:image/png;base64,{base64Image}";
+
+                                     <img src="@imageUrl" data-image="@imageUrl" class="product-image" alt="Shampoo Head & Shoulders">
+                                }
+
+                                   
+                                </div>
+                                <h5 class="product-title">@Html.DisplayFor(modelItem => item.Nombre)</h5>
+                                <p class="available"><i class="fas fa-check-circle me-2"></i>Available</p>
+                                <div class="product-footer">
+                                    <button data-id="@item.Id" data-precio="@item.Precio" class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-cart me-2"></i>Añadir
+                                    </button>
+                                    <span class="product-price">@Html.DisplayFor(modelItem => item.Precio)</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+        </div>
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+
+                $(document).ready(function() {
+
+        // Función para obtener el carrito del localStorage
+        function getCarrito() {
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            return carrito;
+        }
+
+        // Función para guardar el carrito en el localStorage
+        function guardarCarrito(carrito) {
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+        }
+
+        // Función para agregar un producto al carrito
+        function agregarAlCarrito(idProducto, nombre, precio, imagen) {
+            let carrito = getCarrito();
+            let productoExistente = carrito.find(producto => producto.idProducto === idProducto);
+
+            if (productoExistente) {
+            // Si el producto ya existe, actualiza la cantidad y el subtotal
+            productoExistente.cantidad++;
+            productoExistente.subtotal = productoExistente.cantidad * precio;
+            } else {
+            // Si el producto no existe, agrega un nuevo producto al carrito
+            carrito.push({
+                idProducto: idProducto,
+                nombre: nombre,
+                cantidad: 1,
+                precio: precio,
+                subtotal: precio, // Inicialmente, el subtotal es igual al precio
+                imagen: imagen
+            });
+            }
+
+            guardarCarrito(carrito);
+            console.log(carrito); // Imprime el carrito actualizado en la consola
+        }
+
+        // Evento click para el botón "Añadir al carrito"
+        $('.add-to-cart-btn').click(function() {
+            let idProducto = $(this).data('id');
+            let nombre = $(this).closest('.product-card').find('.product-title').text().trim(); // Obtiene el nombre del producto
+            let precio = parseFloat($(this).data('precio'));
+            let imagen = $(this).closest('.product-card').find('.product-image').data('image'); // Obtiene la URL de la imagen
+
+            agregarAlCarrito(idProducto, nombre, precio, imagen);
+        });
+
+        });
+                
+     
+    </script>
+}
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Initialize tooltips -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+
+
+</body>
+</html>

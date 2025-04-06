@@ -48,7 +48,7 @@ namespace Sistema_de_Tienda.Controllers
         public IActionResult Create()
         {
             ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Nombre");
-            return View();
+            return View(new Pedido());
         }
 
         // POST: Pedido/Create
@@ -56,14 +56,34 @@ namespace Sistema_de_Tienda.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdCliente,FechaPedido,Total,Estado")] Pedido pedido)
+        public async Task<IActionResult> Create([Bind("Id,IdCliente,FechaPedido,Total,Estado,DetallesPedidos")] Pedido pedido)
         {
-            if (ModelState.IsValid)
-            {
+
+             Console.WriteLine($"Id: {pedido.Id}");
+                Console.WriteLine($"IdCliente: {pedido.IdCliente}");
+                Console.WriteLine($"FechaPedido: {pedido.FechaPedido}");
+                Console.WriteLine($"Total: {pedido.Total}");
+                Console.WriteLine($"Estado: {pedido.Estado}");
+                Console.WriteLine($"DetallesPedido: {pedido.DetallesPedidos}");
+
+                 if (pedido.DetallesPedidos != null )
+    {
+        Console.WriteLine("DetallesPedido:");
+        foreach (var detalle in pedido.DetallesPedidos)
+        {
+            Console.WriteLine($"  Id: {detalle.Id}, ProductoId: {detalle.IdProducto}, Cantidad: {detalle.Cantidad}, Precio: {detalle.PrecioUnitario}"); // Asumiendo que DetallesPedido tiene estas propiedades
+            // Agrega aquí las propiedades que quieras imprimir
+        }
+    }
+    else
+    {
+        Console.WriteLine("DetallesPedido: Lista vacía o nula");
+    }
+           
                 _context.Add(pedido);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+              
+            
             ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Nombre", pedido.IdCliente);
             return View(pedido);
         }
