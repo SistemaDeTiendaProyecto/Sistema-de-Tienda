@@ -11,6 +11,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -120,8 +121,7 @@
                             <i class="fas fa-shopping-cart"></i>
                         </button>
                     </div>
-                </div>      
-             
+                </div>     
                     
                     <!-- Section title -->
                   
@@ -142,7 +142,7 @@
                                     string base64Image = Convert.ToBase64String(item.Image);
                                     string imageUrl = $"data:image/png;base64,{base64Image}";
 
-                                     <img src="@imageUrl" class="product-image" alt="Shampoo Head & Shoulders">
+                                     <img src="@imageUrl" data-image="@imageUrl" class="product-image" alt="Shampoo Head & Shoulders">
                                 }
 
                                    
@@ -150,7 +150,7 @@
                                 <h5 class="product-title">@Html.DisplayFor(modelItem => item.Nombre)</h5>
                                 <p class="available"><i class="fas fa-check-circle me-2"></i>Available</p>
                                 <div class="product-footer">
-                                    <button data-id="@item.Id" class="add-to-cart-btn">
+                                    <button data-id="@item.Id" data-precio="@item.Precio" class="add-to-cart-btn">
                                         <i class="fas fa-shopping-cart me-2"></i>Añadir
                                     </button>
                                     <span class="product-price">@Html.DisplayFor(modelItem => item.Precio)</span>
@@ -160,36 +160,61 @@
 
 
                     }
-
-
-
-                        <!-- Product 1 -->
-                       
-                        
-                       
-                     
-                        
-                      
-                      
-                    
-                    <!-- Paginacion -->
-                    
-                   
         </div>
-
- 
-
-
-    @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-      $(document).ready(function() {
-        $('.add-to-cart-btn').click(function() {
-            var productId = $(this).attr('data-id');
-            alert("ID del producto: " + productId); 
-        });
-});
 
+                $(document).ready(function() {
+
+        // Función para obtener el carrito del localStorage
+        function getCarrito() {
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            return carrito;
+        }
+
+        // Función para guardar el carrito en el localStorage
+        function guardarCarrito(carrito) {
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+        }
+
+        // Función para agregar un producto al carrito
+        function agregarAlCarrito(idProducto, nombre, precio, imagen) {
+            let carrito = getCarrito();
+            let productoExistente = carrito.find(producto => producto.idProducto === idProducto);
+
+            if (productoExistente) {
+            // Si el producto ya existe, actualiza la cantidad y el subtotal
+            productoExistente.cantidad++;
+            productoExistente.subtotal = productoExistente.cantidad * precio;
+            } else {
+            // Si el producto no existe, agrega un nuevo producto al carrito
+            carrito.push({
+                idProducto: idProducto,
+                nombre: nombre,
+                cantidad: 1,
+                precio: precio,
+                subtotal: precio, // Inicialmente, el subtotal es igual al precio
+                imagen: imagen
+            });
+            }
+
+            guardarCarrito(carrito);
+            console.log(carrito); // Imprime el carrito actualizado en la consola
+        }
+
+        // Evento click para el botón "Añadir al carrito"
+        $('.add-to-cart-btn').click(function() {
+            let idProducto = $(this).data('id');
+            let nombre = $(this).closest('.product-card').find('.product-title').text().trim(); // Obtiene el nombre del producto
+            let precio = parseFloat($(this).data('precio'));
+            let imagen = $(this).closest('.product-card').find('.product-image').data('image'); // Obtiene la URL de la imagen
+
+            agregarAlCarrito(idProducto, nombre, precio, imagen);
+        });
+
+        });
+                
      
     </script>
 }
