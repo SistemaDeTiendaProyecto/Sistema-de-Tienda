@@ -38,6 +38,24 @@
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav">
+
+                     @if (User.Identity.IsAuthenticated)
+                    {
+                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="CerrarSession">
+                                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                            </a>
+                         </li>
+                    }
+                    else
+                    {
+                         <li class="nav-item">
+                        <a class="btn btn-outline-info" asp-area="" asp-controller="Cliente" asp-action="Login">
+                            <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+                        </a>
+                         </li>
+
+                    }
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
                             <i class="fas fa-home"></i> Inicio
@@ -48,6 +66,8 @@
                             <i class="fas fa-user-secret"></i> Privacidad
                         </a>
                     </li>
+
+                
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
